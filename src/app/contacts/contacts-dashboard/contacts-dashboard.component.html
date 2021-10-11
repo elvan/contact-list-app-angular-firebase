@@ -1,5 +1,5 @@
 <div class="col-6 mx-auto">
-  <div class="table-responsive">
+  <div *ngIf="contacts$ | async" class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contact of contacts">
+        <tr *ngFor="let contact of contacts$ | async">
           <td>{{ contact.name }}</td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-contacts-dashboard',
@@ -6,28 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts-dashboard.component.css'],
 })
 export class ContactsDashboardComponent implements OnInit {
-  contacts = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@doe.com',
-      phone: '555-555-5555',
-    },
-    {
-      id: 2,
-      name: 'Aubrey Mall',
-      email: 'aubrey@mall.com',
-      phone: '555-555-6666',
-    },
-    {
-      id: 3,
-      name: 'Sam Smith',
-      email: 'sam@smith.com',
-      phone: '555-555-7777',
-    },
-  ];
+  contacts$: Observable<any[]> = of([]);
 
-  constructor() {}
+  constructor(private firestore: AngularFirestore) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contacts$ = this.firestore.collection('contacts').valueChanges();
+  }
 }
