@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-  <a class="navbar-brand" href="/">
+  <a routerLink="/" class="navbar-brand">
     <i class="bi bi-person-circle"></i> CONTACTS
   </a>
 
@@ -16,11 +16,11 @@
 
   <div [class.collapse]="collapsed" class="navbar-collapse" id="navbarContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">All Contacts</a>
+      <li routerLinkActive="active" class="nav-item">
+        <a routerLink="/contacts" class="nav-link"> All Contacts </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/create">Add New Contact</a>
+      <li routerLinkActive="active" class="nav-item">
+        <a routerLink="/contact-create" class="nav-link"> Add New Contact </a>
       </li>
     </ul>
     <div ngbDropdown class="dropdown">
