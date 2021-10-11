@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">
+    <i class="bi bi-person-circle"></i> CONTACTS
+  </a>
+
+  <button
+    class="navbar-toggler"
+    type="button"
+    aria-controls="navbarContent"
+    [attr.aria-expanded]="!collapsed"
+    aria-label="Toggle navigation"
+    (click)="collapsed = !collapsed"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div [class.collapse]="collapsed" class="navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">All Contacts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Add New Contact</a>
+      </li>
+    </ul>
+    <div ngbDropdown class="dropdown">
+      <a
+        ngbDropdownToggle
+        class="nav-link dropdown-toggle"
+        id="dropdown01"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        style="cursor: pointer"
+      >
+        Welcome, User
+      </a>
+      <div
+        ngbDropdownMenu
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="dropdown01"
+      >
+        <a ngbDropdownItem class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+  </div>
+</nav>
