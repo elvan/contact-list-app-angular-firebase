@@ -20,7 +20,7 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isPending = true;
     this.contactsSubscription = this.contactService
-      .getAllContacts()
+      .getAll()
       .subscribe((contactsData) => {
         this.contacts = contactsData;
         this.isPending = false;

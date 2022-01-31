@@ -4,7 +4,7 @@
   <div class="col-9">
     <div class="card">
       <div class="card-body">
-        <form #contactForm="ngForm" (submit)="save()">
+        <form #contactForm="ngForm" (submit)="onSubmit(contactForm)">
           <!-- Name -->
           <div class="form-group">
             <label for="name">Name</label>
@@ -90,7 +90,7 @@
               class="form-control"
               required
               minlength="3"
-              maxlength="20"
+              maxlength="25"
             />
 
             <div [hidden]="!phone.errors?.required" class="invalid-feedback">
@@ -100,7 +100,7 @@
               Phone must be at least 3 characters
             </div>
             <div [hidden]="!phone.errors?.maxlength" class="invalid-feedback">
-              Phone must be less than 20 characters
+              Phone must be less than 25 characters
             </div>
           </div>
 
@@ -137,7 +137,8 @@
 
     <h4>Info</h4>
     <p class="alert alert-info">
-      <i class="fa fa-info mr-2"></i>This form is pre-populated with dummy data.
+      <i class="fa fa-info mr-2"></i>
+      This form is pre-populated with dummy data.
     </p>
   </div>
 </div>
