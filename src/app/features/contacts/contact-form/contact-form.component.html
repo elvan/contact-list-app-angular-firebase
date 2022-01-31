@@ -14,6 +14,9 @@
               [ngClass]="{
                 'is-invalid': (name.touched || name.dirty) && name.errors
               }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
+              }"
               [disabled]="isPending"
               name="name"
               id="name"
@@ -44,6 +47,9 @@
               [ngClass]="{
                 'is-invalid': (email.touched || email.dirty) && email.errors
               }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
+              }"
               [disabled]="isPending"
               name="email"
               id="email"
@@ -73,6 +79,9 @@
               [(ngModel)]="contact.phone"
               [ngClass]="{
                 'is-invalid': (phone.touched || phone.dirty) && phone.errors
+              }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
               }"
               [disabled]="isPending"
               name="phone"
