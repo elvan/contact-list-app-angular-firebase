@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
@@ -15,7 +16,7 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
 
   contactsSubscription = new Subscription();
 
-  constructor(private contactService: ContactService) {}
+  constructor(private router: Router, private contactService: ContactService) {}
 
   ngOnInit(): void {
     this.isPending = true;
@@ -29,5 +30,11 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.contactsSubscription.unsubscribe();
+  }
+
+  viewDetails(id: string | undefined): void {
+    if (id) {
+      this.router.navigate(['/contact-details', id]);
+    }
   }
 }

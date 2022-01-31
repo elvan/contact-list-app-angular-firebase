@@ -14,6 +14,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './features/account/login/login.component';
 import { RegisterComponent } from './features/account/register/register.component';
 import { ContactDashboardComponent } from './features/contacts/contact-dashboard/contact-dashboard.component';
+import { ContactDetailsComponent } from './features/contacts/contact-details/contact-details.component';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 import { HomeComponent } from './features/home/home.component';
 
@@ -26,6 +27,7 @@ import { HomeComponent } from './features/home/home.component';
     LoginComponent,
     RegisterComponent,
     ContactDashboardComponent,
+    ContactDetailsComponent,
     ContactFormComponent,
     HomeComponent,
   ],

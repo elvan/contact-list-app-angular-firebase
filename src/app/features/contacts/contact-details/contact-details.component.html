@@ -1,1 +1,42 @@
-<p>contact-details works!</p>
+<h3>Contact Details</h3>
+
+<div *ngIf="isPending">
+  <p>Loading...</p>
+</div>
+
+<ng-container *ngIf="contact">
+  <div class="row">
+    <div class="col-9">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{ contact?.name }}</h5>
+        </div>
+        <div class="card-body">
+          <div class="col-9">
+            <p>{{ contact?.email }}</p>
+            <p>{{ contact?.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <a
+        [routerLink]="'/contact-edit/' + contact.id"
+        class="btn btn-primary btn-block"
+      >
+        <i class="fa fa-pencil mr-2"></i>
+        Edit
+      </a>
+
+      <hr />
+
+      <h4>Info</h4>
+
+      <p class="alert alert-dark">
+        <i class="fa fa-user mr-2"></i>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      </p>
+    </div>
+  </div>
+</ng-container>

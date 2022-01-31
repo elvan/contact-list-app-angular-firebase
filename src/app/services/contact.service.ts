@@ -22,10 +22,10 @@ export class ContactService {
   }
 
   getAll(): Observable<Contact[]> {
-    return this.contactCollection.snapshotChanges().pipe(
+    return this.contactCollection.snapshotChanges().pipe<Contact[]>(
       map((changes) => {
         return changes.map((action) => {
-          const data = action.payload.doc.data() as Contact;
+          const data = action.payload.doc.data();
           const id = action.payload.doc.id;
           return { ...data, id };
         });
@@ -34,8 +34,26 @@ export class ContactService {
   }
 
   create(contact: Contact): Promise<DocumentReference<Contact>> {
-    contact.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
-    contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
+    const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
+    contact.createdAt = timestamp;
+    contact.updatedAt = timestamp;
     return this.contactCollection.add(contact);
+  }
+
+  get(id: string) {
+    return this.contactCollection
+      .doc(id)
+      .snapshotChanges()
+      .pipe(
+        map((action) => {
+          if (action.payload.exists === false) {
+            return null;
+          } else {
+            const data = action.payload.data();
+            data.id = action.payload.id;
+            return data;
+          }
+        })
+      );
   }
 }

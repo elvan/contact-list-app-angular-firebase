@@ -17,7 +17,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let contact of contacts" style="cursor: pointer">
+            <tr
+              *ngFor="let contact of contacts"
+              (click)="viewDetails(contact.id)"
+              style="cursor: pointer"
+            >
               <td>{{ contact.name }}</td>
               <td>{{ contact.email }}</td>
               <td>{{ contact.phone }}</td>
