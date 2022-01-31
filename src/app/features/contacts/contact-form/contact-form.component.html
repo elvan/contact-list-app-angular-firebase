@@ -1,1 +1,158 @@
-<p>contact-form works!</p>
+<h3>Add New Contact</h3>
+
+<div class="row">
+  <div class="col-9">
+    <div class="card">
+      <div class="card-body">
+        <form #contactForm="ngForm" (submit)="save()">
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              #firstName="ngModel"
+              [(ngModel)]="contact.firstName"
+              [ngClass]="{
+                'is-invalid':
+                  (firstName.touched || firstName.dirty) && firstName.errors
+              }"
+              name="firstName"
+              id="firstName"
+              type="text"
+              class="form-control"
+              required
+              minlength="2"
+              maxlength="100"
+            />
+
+            <div
+              [hidden]="!firstName.errors?.required"
+              class="invalid-feedback"
+            >
+              First name is required
+            </div>
+            <div
+              [hidden]="!firstName.errors?.minlength"
+              class="invalid-feedback"
+            >
+              First name must be at least 2 characters
+            </div>
+            <div
+              [hidden]="!firstName.errors?.maxlength"
+              class="invalid-feedback"
+            >
+              First name must be less than 100 characters
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              #lastName="ngModel"
+              [(ngModel)]="contact.lastName"
+              [ngClass]="{
+                'is-invalid':
+                  (lastName.touched || lastName.dirty) && lastName.errors
+              }"
+              name="lastName"
+              id="lastName"
+              type="text"
+              class="form-control"
+              required
+              minlength="2"
+              maxlength="100"
+            />
+
+            <div [hidden]="!lastName.errors?.required" class="invalid-feedback">
+              Last name is required
+            </div>
+            <div
+              [hidden]="!lastName.errors?.minlength"
+              class="invalid-feedback"
+            >
+              Last name must be at least 2 characters
+            </div>
+            <div
+              [hidden]="!lastName.errors?.maxlength"
+              class="invalid-feedback"
+            >
+              Last name must be less than 100 characters
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              #email="ngModel"
+              [(ngModel)]="contact.email"
+              [ngClass]="{
+                'is-invalid': (email.touched || email.dirty) && email.errors
+              }"
+              name="email"
+              id="email"
+              type="email"
+              class="form-control"
+              required
+              minlength="5"
+              maxlength="100"
+            />
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              #phone="ngModel"
+              [(ngModel)]="contact.phone"
+              [ngClass]="{
+                'is-invalid': (phone.touched || phone.dirty) && phone.errors
+              }"
+              name="phone"
+              id="phone"
+              type="tel"
+              class="form-control"
+              required
+              minlength="3"
+              maxlength="20"
+            />
+
+            <div [hidden]="!phone.errors?.required" class="invalid-feedback">
+              Phone is required
+            </div>
+            <div [hidden]="!phone.errors?.minlength" class="invalid-feedback">
+              Phone must be at least 3 characters
+            </div>
+            <div [hidden]="!phone.errors?.maxlength" class="invalid-feedback">
+              Phone must be less than 20 characters
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="contactForm.invalid"
+          >
+            Save Contact
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div>
+      <a
+        routerLink="/contact-dashboard"
+        class="btn btn-outline-primary btn-block"
+        ><i class="fa fa-chevron-left mr-2"></i>Back to Contacts</a
+      >
+    </div>
+
+    <hr class="my-3" />
+
+    <h4>Info</h4>
+    <p>This form is populated with dummy data</p>
+  </div>
+</div>
