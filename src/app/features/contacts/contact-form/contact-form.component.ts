@@ -8,6 +8,8 @@ import { Contact } from 'src/app/models/contact';
   styleUrls: ['./contact-form.component.css'],
 })
 export class ContactFormComponent implements OnInit {
+  isPending = false;
+
   contact: Contact;
 
   constructor() {
@@ -22,6 +24,9 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {}
 
   save() {
-    console.log('save');
+    this.isPending = true;
+    setTimeout(() => {
+      this.isPending = false;
+    }, 1000);
   }
 }
