@@ -5,19 +5,18 @@
     <div class="card">
       <div class="card-body">
         <form #contactForm="ngForm" (submit)="save()">
-          <!-- First Name -->
+          <!-- Name -->
           <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label for="name">Name</label>
             <input
-              #firstName="ngModel"
-              [(ngModel)]="contact.firstName"
+              #name="ngModel"
+              [(ngModel)]="contact.name"
               [ngClass]="{
-                'is-invalid':
-                  (firstName.touched || firstName.dirty) && firstName.errors
+                'is-invalid': (name.touched || name.dirty) && name.errors
               }"
               [disabled]="isPending"
-              name="firstName"
-              id="firstName"
+              name="name"
+              id="name"
               type="text"
               class="form-control"
               required
@@ -25,60 +24,14 @@
               maxlength="100"
             />
 
-            <div
-              [hidden]="!firstName.errors?.required"
-              class="invalid-feedback"
-            >
-              First name is required
+            <div [hidden]="!name.errors?.required" class="invalid-feedback">
+              Name is required
             </div>
-            <div
-              [hidden]="!firstName.errors?.minlength"
-              class="invalid-feedback"
-            >
-              First name must be at least 2 characters
+            <div [hidden]="!name.errors?.minlength" class="invalid-feedback">
+              Name must be at least 2 characters
             </div>
-            <div
-              [hidden]="!firstName.errors?.maxlength"
-              class="invalid-feedback"
-            >
-              First name must be less than 100 characters
-            </div>
-          </div>
-
-          <!-- Last Name -->
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input
-              #lastName="ngModel"
-              [(ngModel)]="contact.lastName"
-              [ngClass]="{
-                'is-invalid':
-                  (lastName.touched || lastName.dirty) && lastName.errors
-              }"
-              [disabled]="isPending"
-              name="lastName"
-              id="lastName"
-              type="text"
-              class="form-control"
-              required
-              minlength="2"
-              maxlength="100"
-            />
-
-            <div [hidden]="!lastName.errors?.required" class="invalid-feedback">
-              Last name is required
-            </div>
-            <div
-              [hidden]="!lastName.errors?.minlength"
-              class="invalid-feedback"
-            >
-              Last name must be at least 2 characters
-            </div>
-            <div
-              [hidden]="!lastName.errors?.maxlength"
-              class="invalid-feedback"
-            >
-              Last name must be less than 100 characters
+            <div [hidden]="!name.errors?.maxlength" class="invalid-feedback">
+              Name must be less than 100 characters
             </div>
           </div>
 
@@ -174,6 +127,8 @@
     <hr class="my-3" />
 
     <h4>Info</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <p class="alert alert-info">
+      <i class="fa fa-info mr-2"></i>This form is pre-populated with dummy data.
+    </p>
   </div>
 </div>
