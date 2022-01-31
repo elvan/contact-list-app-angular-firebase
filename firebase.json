@@ -1,7 +1,11 @@
 {
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "hosting": [
     {
-      "public": "dist/contact-list-angular-firebase-example",
+      "public": "dist/contact-list-app",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -15,32 +19,8 @@
       ]
     },
     {
-      "target": "contact-list-angular-firebase-example",
-      "public": "dist/contact-list-angular-firebase-example",
-      "ignore": [
-        "**/.*"
-      ],
-      "headers": [
-        {
-          "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public,max-age=31536000,immutable"
-            }
-          ]
-        }
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "contact-list-angular-firebase-example",
-      "public": "dist/contact-list-angular-firebase-example",
+      "target": "contact-list-app",
+      "public": "dist/contact-list-app",
       "ignore": [
         "**/.*"
       ],

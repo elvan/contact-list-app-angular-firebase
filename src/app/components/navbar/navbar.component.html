@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
   <a routerLink="/" class="navbar-brand">
-    <i class="bi bi-person-circle"></i> CONTACTS
+    <i class="bi bi-person-circle mr-2"></i>ContactList
   </a>
 
   <button
@@ -17,10 +17,10 @@
   <div [class.collapse]="collapsed" class="navbar-collapse" id="navbarContent">
     <ul class="navbar-nav mr-auto">
       <li routerLinkActive="active" class="nav-item">
-        <a routerLink="/contacts" class="nav-link"> All Contacts </a>
+        <a routerLink="/contact-dashboard" class="nav-link"> All Contacts </a>
       </li>
       <li routerLinkActive="active" class="nav-item">
-        <a routerLink="/contact-create" class="nav-link"> Add New Contact </a>
+        <a routerLink="/contact-form" class="nav-link"> Add New Contact </a>
       </li>
     </ul>
     <div ngbDropdown class="dropdown">

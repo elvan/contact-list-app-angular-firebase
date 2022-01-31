@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactCreateComponent } from './contacts/contact-create/contact-create.component';
-import { ContactsDashboardComponent } from './contacts/contacts-dashboard/contacts-dashboard.component';
-import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ContactDashboardComponent } from './features/contacts/contact-dashboard/contact-dashboard.component';
+import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
+import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
   {
@@ -10,16 +11,16 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'contacts',
-    component: ContactsDashboardComponent,
+    path: 'contact-dashboard',
+    component: ContactDashboardComponent,
   },
   {
-    path: 'contact-create',
-    component: ContactCreateComponent,
+    path: 'contact-form',
+    component: ContactFormComponent,
   },
   {
     path: '**',
-    redirectTo: '',
+    component: NotFoundComponent,
   },
 ];
 
