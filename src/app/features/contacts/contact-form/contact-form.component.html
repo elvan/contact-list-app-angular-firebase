@@ -100,6 +100,16 @@
               minlength="5"
               maxlength="100"
             />
+
+            <div [hidden]="!email.errors?.required" class="invalid-feedback">
+              Email is required
+            </div>
+            <div [hidden]="!email.errors?.minlength" class="invalid-feedback">
+              Email must be at least 2 characters
+            </div>
+            <div [hidden]="!email.errors?.maxlength" class="invalid-feedback">
+              Email must be less than 100 characters
+            </div>
           </div>
 
           <!-- Phone -->
@@ -137,6 +147,9 @@
             type="submit"
             class="btn btn-success"
             [disabled]="contactForm.invalid"
+            [ngStyle]="{
+              cursor: isPending ? 'not-allowed' : 'pointer'
+            }"
           >
             <span
               *ngIf="isPending"
