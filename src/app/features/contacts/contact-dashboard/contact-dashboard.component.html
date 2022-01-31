@@ -1,22 +1,42 @@
-<div class="col-8 mx-auto">
-  <h3>Contacts</h3>
+<h3>Contacts</h3>
 
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Example User</td>
-          <td>user@example.com</td>
-          <td>0123-456-789</td>
-        </tr>
-      </tbody>
-    </table>
+<div *ngIf="isPending">
+  <p>Loading...</p>
+</div>
+
+<div *ngIf="!isPending" class="row">
+  <div class="col-9">
+    <ng-container *ngIf="contacts.length > 0; else empty">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contacts" style="cursor: pointer">
+              <td>{{ contact.firstName }} {{ contact.lastName }}</td>
+              <td>{{ contact.email }}</td>
+              <td>{{ contact.phone }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+    <ng-template #empty>
+      <p>No contacts found.</p>
+    </ng-template>
+  </div>
+
+  <div class="col-3">
+    <div>
+      <a routerLink="/contact-form" class="btn btn-primary d-block"
+        >Add New Contact</a
+      >
+    </div>
   </div>
 </div>

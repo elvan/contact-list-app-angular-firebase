@@ -11,11 +11,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './features/account/login/login.component';
 import { RegisterComponent } from './features/account/register/register.component';
+import { ContactDashboardComponent } from './features/contacts/contact-dashboard/contact-dashboard.component';
 import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ContactDashboardComponent,
     HomeComponent,
     LoginComponent,
     NavbarComponent,

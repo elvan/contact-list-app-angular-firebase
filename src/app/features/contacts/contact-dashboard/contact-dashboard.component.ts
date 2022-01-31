@@ -9,6 +9,8 @@ import { ContactService } from 'src/app/services/contact.service';
   styleUrls: ['./contact-dashboard.component.css'],
 })
 export class ContactDashboardComponent implements OnInit, OnDestroy {
+  isPending = false;
+
   contacts: Contact[] = [];
 
   contactsSubscription = new Subscription();
@@ -16,11 +18,12 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
+    this.isPending = true;
     this.contactsSubscription = this.contactService
       .getAllContacts()
       .subscribe((contactsData) => {
         this.contacts = contactsData;
-        console.log(this.contacts);
+        this.isPending = false;
       });
   }
 
