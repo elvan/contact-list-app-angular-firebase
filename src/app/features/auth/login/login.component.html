@@ -43,8 +43,15 @@
               class="spinner-border spinner-border-sm mr-2"
             ></span>
             <i *ngIf="!pending" class="fa fa-sign-in-o mr-2"></i>
-            Login
+            {{ pending ? "Logging in..." : "Login" }}
           </button>
+
+          <hr />
+
+          <div class="text-center">
+            Have no account?
+            <a routerLink="/register"> Register here </a>
+          </div>
         </form>
       </div>
     </div>

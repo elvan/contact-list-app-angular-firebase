@@ -31,15 +31,9 @@
         <li routerLinkActive="active" class="nav-item">
           <a routerLink="/contact-form" class="nav-link">Add New Contact</a>
         </li>
-        <li routerLinkActive="active" class="nav-item">
-          <a routerLink="/login" class="nav-link">Login</a>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-          <a routerLink="/register" class="nav-link">Register</a>
-        </li>
       </ul>
 
-      <div ngbDropdown class="nav-item dropdown">
+      <div *ngIf="user" ngbDropdown class="nav-item dropdown">
         <a
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
@@ -49,7 +43,7 @@
           aria-expanded="false"
           style="cursor: pointer"
         >
-          {{ user ? user.email : "Guest" }}
+          {{ user.email }}
         </a>
         <div
           ngbDropdownMenu
@@ -60,8 +54,50 @@
           <a ngbDropdownItem class="dropdown-item" routerLink="/">Action</a>
           <a class="dropdown-item" routerLink="/">Another action</a>
           <a class="dropdown-item" routerLink="/">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a
+            (click)="openModal(content)"
+            class="dropdown-item"
+            style="cursor: pointer"
+            >Logout</a
+          >
         </div>
       </div>
     </div>
   </div>
 </nav>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Logging out</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <strong>Are you sure you want to log out? </strong>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="modal.dismiss('Cancel click')"
+    >
+      No, cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('Delete Contact')"
+    >
+      Yes, log out now
+    </button>
+  </div>
+</ng-template>
