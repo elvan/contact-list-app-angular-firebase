@@ -1,4 +1,4 @@
-<h3>Add New Contact</h3>
+<h3>{{ contact.id ? "Edit" : "Add New" }} Contact</h3>
 
 <div class="row">
   <div class="col-9">
@@ -126,10 +126,9 @@
 
   <div class="col-3">
     <div>
-      <a
-        routerLink="/contact-dashboard"
-        class="btn btn-outline-primary btn-block"
-        ><i class="fa fa-chevron-left mr-2"></i>Back to Contacts</a
+      <a [routerLink]="returnUrl" class="btn btn-outline-primary btn-block"
+        ><i class="fa fa-chevron-left mr-2"></i> Back to
+        {{ contact.id ? "Details" : "Contacts" }}</a
       >
     </div>
 

@@ -56,4 +56,9 @@ export class ContactService {
         })
       );
   }
+
+  update(id: string, contact: Contact) {
+    contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
+    return this.contactCollection.doc(id).update(contact);
+  }
 }
