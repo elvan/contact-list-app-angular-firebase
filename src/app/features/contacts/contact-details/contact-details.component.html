@@ -14,7 +14,7 @@
 
 <ng-container *ngIf="contact">
   <div class="row">
-    <div class="col-9">
+    <div class="col-xs-12 col-md-9 mb-3">
       <div class="card">
         <div class="card-body">
           <ul class="list-group list-group-flush">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="col-3">
+    <div class="col-xs-12 col-md-3">
       <div>
         <a
           [routerLink]="'/contact-form/' + contact.id"

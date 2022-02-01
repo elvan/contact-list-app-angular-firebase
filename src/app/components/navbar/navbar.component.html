@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
   <div class="container-lg">
-    <a routerLink="/" class="navbar-brand text-uppercase">
+    <a
+      routerLink="/"
+      class="navbar-brand text-uppercase"
+      (click)="collapsed = true"
+    >
       <i class="fa fa-users mr-2"></i>Contacts
     </a>
 
@@ -20,7 +24,7 @@
       class="navbar-collapse"
       id="navbarContent"
     >
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" (click)="collapsed = true">
         <li routerLinkActive="active" class="nav-item">
           <a routerLink="/contact-dashboard" class="nav-link">All Contacts</a>
         </li>
@@ -35,7 +39,7 @@
         </li>
       </ul>
 
-      <div ngbDropdown class="dropdown">
+      <div ngbDropdown class="nav-item dropdown">
         <a
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
@@ -49,8 +53,9 @@
         </a>
         <div
           ngbDropdownMenu
-          class="dropdown-menu dropdown-menu-right"
+          class="dropdown-menu"
           aria-labelledby="dropdown01"
+          (click)="collapsed = true"
         >
           <a ngbDropdownItem class="dropdown-item" routerLink="/">Action</a>
           <a class="dropdown-item" routerLink="/">Another action</a>
