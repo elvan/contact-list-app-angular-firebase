@@ -8,14 +8,18 @@
   <div class="row">
     <div class="col-9">
       <div class="card">
-        <div class="card-header">
-          <h5>{{ contact?.name }}</h5>
-        </div>
         <div class="card-body">
-          <div class="col-9">
-            <p>{{ contact?.email }}</p>
-            <p>{{ contact?.phone }}</p>
-          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Name:</strong> {{ contact?.name }}
+            </li>
+            <li class="list-group-item">
+              <strong>Email:</strong> {{ contact?.email }}
+            </li>
+            <li class="list-group-item">
+              <strong>Phone:</strong> {{ contact?.phone }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
