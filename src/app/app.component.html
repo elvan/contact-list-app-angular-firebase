@@ -1,5 +1,11 @@
-<app-navbar></app-navbar>
+<ng-container *ngIf="authIsReady; else splash">
+  <app-navbar></app-navbar>
 
-<main role="main" class="container-lg">
-  <router-outlet></router-outlet>
-</main>
+  <main role="main" class="container-lg">
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>
+
+<ng-template #splash>
+  <span class="bg-warning py-1 px-2">Loading...</span>
+</ng-template>

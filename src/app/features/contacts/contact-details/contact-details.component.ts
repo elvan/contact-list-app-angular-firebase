@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -9,12 +10,14 @@ import { ContactService } from 'src/app/services/contact.service';
   templateUrl: './contact-details.component.html',
   styleUrls: ['./contact-details.component.css'],
 })
-export class ContactDetailsComponent implements OnInit {
-  isPending = false;
-  isDeleting = false;
+export class ContactDetailsComponent implements OnInit, OnDestroy {
+  pending = false;
+  deleting = false;
 
   contact?: Contact;
   id: string | null;
+
+  getContactSub?: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,15 +29,21 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isPending = true;
     if (this.id) {
-      this.contactService.get(this.id).subscribe((contact) => {
-        if (contact) {
-          this.contact = contact;
-        }
-      });
+      this.pending = true;
+      this.getContactSub = this.contactService
+        .get(this.id)
+        .subscribe((contact) => {
+          if (contact) {
+            this.contact = contact;
+          }
+          this.pending = false;
+        });
     }
-    this.isPending = false;
+  }
+
+  ngOnDestroy(): void {
+    this.getContactSub?.unsubscribe();
   }
 
   onEdit(): void {
@@ -55,11 +64,11 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   private async delete(): Promise<void> {
-    this.isDeleting = true;
+    this.deleting = true;
     if (this.id) {
       await this.contactService.delete(this.id);
       this.router.navigateByUrl('/contact-dashboard');
     }
-    this.isDeleting = false;
+    this.deleting = false;
   }
 }

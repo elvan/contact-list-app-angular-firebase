@@ -8,7 +8,7 @@
   </ol>
 </nav>
 
-<div *ngIf="isPending">
+<div *ngIf="pending">
   <p>Loading...</p>
 </div>
 
@@ -112,16 +112,16 @@
         </ng-template>
 
         <button
-          [disabled]="isDeleting"
+          [disabled]="deleting"
           (click)="openModal(content)"
           class="btn btn-danger btn-block"
         >
           <span
-            *ngIf="isDeleting"
+            *ngIf="deleting"
             class="spinner-border spinner-border-sm mr-2"
           ></span>
-          <i *ngIf="!isDeleting" class="fa fa-trash mr-2"></i>
-          {{ isDeleting ? "Deleting..." : "Delete Contact" }}
+          <i *ngIf="!deleting" class="fa fa-trash mr-2"></i>
+          {{ deleting ? "Deleting..." : "Delete Contact" }}
         </button>
       </div>
     </div>

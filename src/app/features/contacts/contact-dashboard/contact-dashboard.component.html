@@ -5,11 +5,11 @@
   </ol>
 </nav>
 
-<div *ngIf="isPending">
+<div *ngIf="pending">
   <p>Loading...</p>
 </div>
 
-<div *ngIf="!isPending" class="row">
+<div *ngIf="!pending" class="row">
   <div class="col-xs-12 col-md-9 mb-3">
     <ng-container *ngIf="contacts.length > 0; else empty">
       <div class="table-responsive">

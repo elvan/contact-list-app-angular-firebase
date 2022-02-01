@@ -24,14 +24,27 @@
       class="navbar-collapse"
       id="navbarContent"
     >
-      <ul class="navbar-nav mr-auto" (click)="collapsed = true">
-        <li routerLinkActive="active" class="nav-item">
-          <a routerLink="/contact-dashboard" class="nav-link">All Contacts</a>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-          <a routerLink="/contact-form" class="nav-link">Add New Contact</a>
-        </li>
-      </ul>
+      <ng-container *ngIf="user; else guestNav">
+        <ul class="navbar-nav mr-auto" (click)="collapsed = true">
+          <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/contact-dashboard" class="nav-link">All Contacts</a>
+          </li>
+          <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/contact-form" class="nav-link">Add New Contact</a>
+          </li>
+        </ul>
+      </ng-container>
+
+      <ng-template #guestNav>
+        <ul class="navbar-nav mr-auto" (click)="collapsed = true">
+          <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/login" class="nav-link">Login</a>
+          </li>
+          <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/register" class="nav-link">Register</a>
+          </li>
+        </ul>
+      </ng-template>
 
       <div *ngIf="user" ngbDropdown class="nav-item dropdown">
         <a

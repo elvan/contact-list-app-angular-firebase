@@ -23,9 +23,9 @@
                 'is-invalid': (name.touched || name.dirty) && name.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="name"
               id="name"
               type="text"
@@ -56,9 +56,9 @@
                 'is-invalid': (email.touched || email.dirty) && email.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="email"
               id="email"
               type="email"
@@ -89,9 +89,9 @@
                 'is-invalid': (phone.touched || phone.dirty) && phone.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="phone"
               id="phone"
               type="tel"
@@ -123,9 +123,9 @@
                   (company.touched || company.dirty) && company.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="company"
               id="company"
               type="text"
@@ -157,9 +157,9 @@
                   (address.touched || address.dirty) && address.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="address"
               id="address"
               type="text"
@@ -191,9 +191,9 @@
                   (website.touched || website.dirty) && website.errors
               }"
               [ngStyle]="{
-                cursor: isPending ? 'not-allowed' : 'auto'
+                cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="isPending"
+              [disabled]="pending"
               name="website"
               id="website"
               type="url"
@@ -220,15 +220,15 @@
             class="btn btn-success"
             [disabled]="contactForm.invalid"
             [ngStyle]="{
-              cursor: isPending ? 'not-allowed' : 'pointer'
+              cursor: pending ? 'not-allowed' : 'pointer'
             }"
           >
             <span
-              *ngIf="isPending"
+              *ngIf="pending"
               class="spinner-border spinner-border-sm mr-2"
             ></span>
-            <i *ngIf="!isPending" class="fa fa-floppy-o mr-2"></i>
-            {{ isPending ? "Saving..." : "Save Contact" }}
+            <i *ngIf="!pending" class="fa fa-floppy-o mr-2"></i>
+            {{ pending ? "Saving..." : "Save Contact" }}
           </button>
         </form>
       </div>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { dummyUsers } from 'src/app/data/dummy-users';
 import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
@@ -10,13 +11,14 @@ import { ContactService } from 'src/app/services/contact.service';
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css'],
 })
-export class ContactFormComponent implements OnInit {
-  isPending = false;
+export class ContactFormComponent implements OnInit, OnDestroy {
+  pending = false;
 
   id: string | null = null;
 
   contactData: Contact = {
     id: '',
+    uid: '',
     name: '',
     email: '',
     phone: '',
@@ -27,6 +29,8 @@ export class ContactFormComponent implements OnInit {
 
   returnUrl = '/contact-dashboard';
 
+  getContactSub?: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,9 +38,8 @@ export class ContactFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isPending = true;
+    this.pending = true;
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID', this.id);
 
     if (!this.id) {
       // Create new contact with dummy data
@@ -48,6 +51,7 @@ export class ContactFormComponent implements OnInit {
 
       this.contactData = {
         id: '',
+        uid: '',
         name: dummyUsers[Math.floor(Math.random() * 10)].name,
         email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
         phone: dummyUsers[Math.floor(Math.random() * 10)].phone,
@@ -58,21 +62,27 @@ export class ContactFormComponent implements OnInit {
     } else {
       // Update existing contact
       this.returnUrl = '/contact-details/' + this.id;
-      this.contactService.get(this.id).subscribe((contact) => {
-        if (contact) {
-          this.contactData = {
-            ...contact,
-            id: contact.id,
-          };
-        }
-      });
+      this.getContactSub = this.contactService
+        .get(this.id)
+        .subscribe((contact) => {
+          if (contact) {
+            this.contactData = {
+              ...contact,
+              id: contact.id,
+            };
+          }
+        });
     }
 
-    this.isPending = false;
+    this.pending = false;
+  }
+
+  ngOnDestroy(): void {
+    this.getContactSub?.unsubscribe();
   }
 
   async onSubmit(contactForm: NgForm): Promise<void> {
-    this.isPending = true;
+    this.pending = true;
 
     if (contactForm.invalid) {
       return;
@@ -88,6 +98,6 @@ export class ContactFormComponent implements OnInit {
       this.router.navigate(['/contact-details', this.id]);
     }
 
-    this.isPending = false;
+    this.pending = false;
   }
 }

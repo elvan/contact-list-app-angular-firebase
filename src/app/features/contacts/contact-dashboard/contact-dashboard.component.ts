@@ -10,26 +10,26 @@ import { ContactService } from 'src/app/services/contact.service';
   styleUrls: ['./contact-dashboard.component.css'],
 })
 export class ContactDashboardComponent implements OnInit, OnDestroy {
-  isPending = false;
+  pending = false;
 
   contacts: Contact[] = [];
 
-  contactsSubscription = new Subscription();
+  listContactsSub?: Subscription;
 
   constructor(private router: Router, private contactService: ContactService) {}
 
   ngOnInit(): void {
-    this.isPending = true;
-    this.contactsSubscription = this.contactService
-      .getAll()
+    this.pending = true;
+    this.listContactsSub = this.contactService
+      .list()
       .subscribe((contactsData) => {
         this.contacts = contactsData;
-        this.isPending = false;
+        this.pending = false;
       });
   }
 
   ngOnDestroy(): void {
-    this.contactsSubscription.unsubscribe();
+    this.listContactsSub?.unsubscribe();
   }
 
   viewDetails(id: string | undefined): void {
