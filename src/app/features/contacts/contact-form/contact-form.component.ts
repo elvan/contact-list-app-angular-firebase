@@ -19,6 +19,9 @@ export class ContactFormComponent implements OnInit {
     name: '',
     email: '',
     phone: '',
+    company: '',
+    address: '',
+    website: '',
   };
 
   returnUrl = '/contact-dashboard';
@@ -35,11 +38,21 @@ export class ContactFormComponent implements OnInit {
     console.log('ID', this.id);
 
     if (!this.id) {
+      // Dummy data
+      const dummyAddress =
+        `${dummyUsers[Math.floor(Math.random() * 10)].address.street} ` +
+        `${dummyUsers[Math.floor(Math.random() * 10)].address.suite}, ` +
+        `${dummyUsers[Math.floor(Math.random() * 10)].address.city}, ` +
+        `${dummyUsers[Math.floor(Math.random() * 10)].address.zipcode}`;
+
       this.contactData = {
         id: '',
         name: dummyUsers[Math.floor(Math.random() * 10)].name,
         email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
         phone: dummyUsers[Math.floor(Math.random() * 10)].phone,
+        company: dummyUsers[Math.floor(Math.random() * 10)].company.name,
+        address: dummyAddress,
+        website: dummyUsers[Math.floor(Math.random() * 10)].website,
       };
     } else {
       this.returnUrl = '/contact-details/' + this.id;

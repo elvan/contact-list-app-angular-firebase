@@ -112,6 +112,108 @@
             </div>
           </div>
 
+          <!-- Company -->
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input
+              #company="ngModel"
+              [(ngModel)]="contactData.company"
+              [ngClass]="{
+                'is-invalid':
+                  (company.touched || company.dirty) && company.errors
+              }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
+              }"
+              [disabled]="isPending"
+              name="company"
+              id="company"
+              type="text"
+              class="form-control"
+              required
+              minlength="3"
+              maxlength="100"
+            />
+
+            <div [hidden]="!company.errors?.required" class="invalid-feedback">
+              Company is required
+            </div>
+            <div [hidden]="!company.errors?.minlength" class="invalid-feedback">
+              Company must be at least 3 characters
+            </div>
+            <div [hidden]="!company.errors?.maxlength" class="invalid-feedback">
+              Company must be less than 100 characters
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input
+              #address="ngModel"
+              [(ngModel)]="contactData.address"
+              [ngClass]="{
+                'is-invalid':
+                  (address.touched || address.dirty) && address.errors
+              }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
+              }"
+              [disabled]="isPending"
+              name="address"
+              id="address"
+              type="text"
+              class="form-control"
+              required
+              minlength="3"
+              maxlength="100"
+            />
+
+            <div [hidden]="!address.errors?.required" class="invalid-feedback">
+              Address is required
+            </div>
+            <div [hidden]="!address.errors?.minlength" class="invalid-feedback">
+              Address must be at least 3 characters
+            </div>
+            <div [hidden]="!address.errors?.maxlength" class="invalid-feedback">
+              Address must be less than 100 characters
+            </div>
+          </div>
+
+          <!-- Website -->
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input
+              #website="ngModel"
+              [(ngModel)]="contactData.website"
+              [ngClass]="{
+                'is-invalid':
+                  (website.touched || website.dirty) && website.errors
+              }"
+              [ngStyle]="{
+                cursor: isPending ? 'not-allowed' : 'auto'
+              }"
+              [disabled]="isPending"
+              name="website"
+              id="website"
+              type="url"
+              class="form-control"
+              required
+              minlength="3"
+              maxlength="100"
+            />
+
+            <div [hidden]="!website.errors?.required" class="invalid-feedback">
+              Website is required
+            </div>
+            <div [hidden]="!website.errors?.minlength" class="invalid-feedback">
+              Website must be at least 3 characters
+            </div>
+            <div [hidden]="!website.errors?.maxlength" class="invalid-feedback">
+              Website must be less than 100 characters
+            </div>
+          </div>
+
           <!-- Submit Button -->
           <button
             type="submit"
