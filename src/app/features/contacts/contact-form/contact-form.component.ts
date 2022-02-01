@@ -60,7 +60,8 @@ export class ContactFormComponent implements OnInit {
 
     if (!this.id) {
       // Create
-      const id = await (await this.contactService.create(this.contact)).id;
+      const docRef = await this.contactService.create(this.contact);
+      const id = docRef.id;
       this.router.navigate(['/contact-details', id]);
     } else {
       // Update
