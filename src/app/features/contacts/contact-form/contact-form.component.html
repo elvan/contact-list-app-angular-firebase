@@ -117,6 +117,7 @@
               *ngIf="isPending"
               class="spinner-border spinner-border-sm mr-2"
             ></span>
+            <i *ngIf="!isPending" class="fa fa-floppy-o mr-2"></i>
             {{ isPending ? "Saving..." : "Save Contact" }}
           </button>
         </form>

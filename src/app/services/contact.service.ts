@@ -61,4 +61,8 @@ export class ContactService {
     contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
     return this.contactCollection.doc(id).update(contact);
   }
+
+  delete(id: string) {
+    return this.contactCollection.doc(id).delete();
+  }
 }

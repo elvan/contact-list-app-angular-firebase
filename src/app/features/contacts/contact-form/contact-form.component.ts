@@ -60,13 +60,14 @@ export class ContactFormComponent implements OnInit {
 
     if (!this.id) {
       // Create
-      await this.contactService.create(this.contact);
+      const id = await (await this.contactService.create(this.contact)).id;
+      this.router.navigate(['/contact-details', id]);
     } else {
       // Update
       await this.contactService.update(this.id, contactForm.value);
+      this.router.navigate(['/contact-details', this.id]);
     }
 
     this.isPending = false;
-    this.router.navigate(['/contact-details', this.id]);
   }
 }

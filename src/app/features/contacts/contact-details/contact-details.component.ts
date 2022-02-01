@@ -10,6 +10,7 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactDetailsComponent implements OnInit {
   isPending = false;
+  isDeleting = false;
 
   contact?: Contact;
   id?: string;
@@ -26,6 +27,7 @@ export class ContactDetailsComponent implements OnInit {
     if (id) {
       this.contactService.get(id).subscribe((contact) => {
         if (contact) {
+          this.id = id;
           this.contact = contact;
         }
       });
@@ -37,5 +39,16 @@ export class ContactDetailsComponent implements OnInit {
     if (this.id) {
       this.router.navigate(['/contact-edit', this.id]);
     }
+  }
+
+  async onDelete() {
+    this.isDeleting = true;
+    if (confirm('Are you sure?')) {
+      if (this.id) {
+        await this.contactService.delete(this.id);
+        this.router.navigateByUrl('/contact-dashboard');
+      }
+    }
+    this.isDeleting = false;
   }
 }

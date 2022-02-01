@@ -4,7 +4,7 @@
   <p>Loading...</p>
 </div>
 
-<ng-container *ngIf="contact">
+<ng-container *ngIf="!isPending && contact">
   <div class="row">
     <div class="col-9">
       <div class="card">
@@ -21,22 +21,41 @@
     </div>
 
     <div class="col-3">
-      <a
-        [routerLink]="'/contact-edit/' + contact.id"
-        class="btn btn-primary btn-block"
-      >
-        <i class="fa fa-pencil mr-2"></i>
-        Edit
-      </a>
+      <div>
+        <a
+          [routerLink]="'/contact-edit/' + contact?.id"
+          class="btn btn-primary btn-block"
+        >
+          <i class="fa fa-pencil mr-2"></i>
+          Edit
+        </a>
+      </div>
 
       <hr />
 
       <h4>Info</h4>
 
-      <p class="alert alert-dark">
-        <i class="fa fa-user mr-2"></i>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      </p>
+      <div>
+        <p class="alert alert-dark">
+          <i class="fa fa-user mr-2"></i>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <button
+          (click)="onDelete()"
+          [disabled]="isDeleting"
+          class="btn btn-danger btn-block"
+        >
+          <span
+            *ngIf="isDeleting"
+            class="spinner-border spinner-border-sm mr-2"
+          ></span>
+          <i *ngIf="!isDeleting" class="fa fa-trash mr-2"></i>
+          {{ isDeleting ? "Deleting..." : "Delete" }}
+        </button>
+      </div>
     </div>
   </div>
 </ng-container>
