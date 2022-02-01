@@ -27,6 +27,18 @@
             <li class="list-group-item">
               <strong>Phone:</strong> {{ contact.phone }}
             </li>
+            <li class="list-group-item">
+              <strong>Company:</strong> {{ contact.company }}
+            </li>
+            <li class="list-group-item">
+              <strong>Address:</strong> {{ contact.address }}
+            </li>
+            <li class="list-group-item">
+              <strong>Website:</strong>
+              <a [href]="'http://' + contact.website" target="_blank">
+                {{ contact.website }}</a
+              >
+            </li>
           </ul>
         </div>
       </div>
