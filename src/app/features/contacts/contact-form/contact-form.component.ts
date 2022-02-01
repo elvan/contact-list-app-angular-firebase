@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dummyUsers } from 'src/app/data/dummy-users';
-import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Component({
@@ -14,7 +13,9 @@ export class ContactFormComponent implements OnInit {
   isPending = false;
 
   id: string | null = null;
-  contact: Contact = {
+
+  contactData = {
+    id: '',
     name: '',
     email: '',
     phone: '',
@@ -34,7 +35,8 @@ export class ContactFormComponent implements OnInit {
     console.log('ID', this.id);
 
     if (!this.id) {
-      this.contact = {
+      this.contactData = {
+        id: '',
         name: dummyUsers[Math.floor(Math.random() * 10)].name,
         email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
         phone: dummyUsers[Math.floor(Math.random() * 10)].phone,
@@ -43,7 +45,10 @@ export class ContactFormComponent implements OnInit {
       this.returnUrl = '/contact-details/' + this.id;
       this.contactService.get(this.id).subscribe((contact) => {
         if (contact) {
-          this.contact = contact;
+          this.contactData = {
+            ...contact,
+            id: contact.id,
+          };
         }
       });
     }
@@ -60,6 +65,7 @@ export class ContactFormComponent implements OnInit {
 
     if (!this.id) {
       // Create
+      await this.contactService.create(this.contactData);
       this.router.navigateByUrl('/contact-dashboard');
     } else {
       // Update

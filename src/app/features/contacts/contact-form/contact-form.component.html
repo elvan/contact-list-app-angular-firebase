@@ -18,7 +18,7 @@
             <label for="name">Name</label>
             <input
               #name="ngModel"
-              [(ngModel)]="contact.name"
+              [(ngModel)]="contactData.name"
               [ngClass]="{
                 'is-invalid': (name.touched || name.dirty) && name.errors
               }"
@@ -51,7 +51,7 @@
             <label for="email">Email</label>
             <input
               #email="ngModel"
-              [(ngModel)]="contact.email"
+              [(ngModel)]="contactData.email"
               [ngClass]="{
                 'is-invalid': (email.touched || email.dirty) && email.errors
               }"
@@ -84,7 +84,7 @@
             <label for="phone">Phone</label>
             <input
               #phone="ngModel"
-              [(ngModel)]="contact.phone"
+              [(ngModel)]="contactData.phone"
               [ngClass]="{
                 'is-invalid': (phone.touched || phone.dirty) && phone.errors
               }"
@@ -137,7 +137,7 @@
     <div>
       <a [routerLink]="returnUrl" class="btn btn-outline-primary btn-block"
         ><i class="fa fa-chevron-left mr-2"></i> Back to
-        {{ contact.id ? "Details" : "Contacts" }}</a
+        {{ contactData.id ? "Details" : "Contacts" }}</a
       >
     </div>
 

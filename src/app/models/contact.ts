@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
 export interface Contact {
-  id?: string;
+  id: string;
   name: string;
   email: string;
   phone: string;
