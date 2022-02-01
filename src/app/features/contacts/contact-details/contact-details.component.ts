@@ -14,22 +14,22 @@ export class ContactDetailsComponent implements OnInit {
   isDeleting = false;
 
   contact?: Contact;
-  id?: string;
+  id: string | null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private contactService: ContactService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.id = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
     this.isPending = true;
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.contactService.get(id).subscribe((contact) => {
+    if (this.id) {
+      this.contactService.get(this.id).subscribe((contact) => {
         if (contact) {
-          this.id = id;
           this.contact = contact;
         }
       });
@@ -43,7 +43,7 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-  openModal(content: any) {
+  openModal(content: any): void {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
@@ -54,7 +54,7 @@ export class ContactDetailsComponent implements OnInit {
       );
   }
 
-  private async delete() {
+  private async delete(): Promise<void> {
     this.isDeleting = true;
     if (this.id) {
       await this.contactService.delete(this.id);

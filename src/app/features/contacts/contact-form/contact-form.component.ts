@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dummyUsers } from 'src/app/data/dummy-users';
+import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class ContactFormComponent implements OnInit {
 
   id: string | null = null;
 
-  contactData = {
+  contactData: Contact = {
     id: '',
     name: '',
     email: '',
@@ -38,7 +39,7 @@ export class ContactFormComponent implements OnInit {
     console.log('ID', this.id);
 
     if (!this.id) {
-      // Dummy data
+      // Create new contact with dummy data
       const dummyAddress =
         `${dummyUsers[Math.floor(Math.random() * 10)].address.street} ` +
         `${dummyUsers[Math.floor(Math.random() * 10)].address.suite}, ` +
@@ -55,6 +56,7 @@ export class ContactFormComponent implements OnInit {
         website: dummyUsers[Math.floor(Math.random() * 10)].website,
       };
     } else {
+      // Update existing contact
       this.returnUrl = '/contact-details/' + this.id;
       this.contactService.get(this.id).subscribe((contact) => {
         if (contact) {
@@ -69,7 +71,7 @@ export class ContactFormComponent implements OnInit {
     this.isPending = false;
   }
 
-  async onSubmit(contactForm: NgForm) {
+  async onSubmit(contactForm: NgForm): Promise<void> {
     this.isPending = true;
 
     if (contactForm.invalid) {

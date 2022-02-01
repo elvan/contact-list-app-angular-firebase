@@ -40,29 +40,29 @@ export class ContactService {
     return this.contactCollection.add(contact);
   }
 
-  get(id: string) {
+  get(id: string): Observable<Contact | null> {
     return this.contactCollection
       .doc(id)
       .snapshotChanges()
       .pipe(
         map((action) => {
-          if (action.payload.exists === false) {
+          if (!action.payload.exists) {
             return null;
-          } else {
-            const data = action.payload.data();
-            data.id = action.payload.id;
-            return data;
           }
+
+          const data = action.payload.data();
+          const id = action.payload.id;
+          return { ...data, id };
         })
       );
   }
 
-  update(id: string, contact: Contact) {
+  update(id: string, contact: Contact): Promise<void> {
     contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
     return this.contactCollection.doc(id).update(contact);
   }
 
-  delete(id: string) {
+  delete(id: string): Promise<void> {
     return this.contactCollection.doc(id).delete();
   }
 }
