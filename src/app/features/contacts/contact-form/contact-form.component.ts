@@ -42,23 +42,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     this.id = this.route.snapshot.paramMap.get('id');
 
     if (!this.id) {
-      // Create new contact with dummy data
-      const dummyAddress =
-        `${dummyUsers[Math.floor(Math.random() * 10)].address.street} ` +
-        `${dummyUsers[Math.floor(Math.random() * 10)].address.suite}, ` +
-        `${dummyUsers[Math.floor(Math.random() * 10)].address.city}, ` +
-        `${dummyUsers[Math.floor(Math.random() * 10)].address.zipcode}`;
-
-      this.contactData = {
-        id: '',
-        uid: '',
-        name: dummyUsers[Math.floor(Math.random() * 10)].name,
-        email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
-        phone: dummyUsers[Math.floor(Math.random() * 10)].phone,
-        company: dummyUsers[Math.floor(Math.random() * 10)].company.name,
-        address: dummyAddress,
-        website: dummyUsers[Math.floor(Math.random() * 10)].website,
-      };
+      this.contactData = this.createDummyData();
     } else {
       // Update existing contact
       this.returnUrl = '/contact-details/' + this.id;
@@ -99,5 +83,24 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     }
 
     this.pending = false;
+  }
+
+  private createDummyData() {
+    const dummyAddress =
+      `${dummyUsers[Math.floor(Math.random() * 10)].address.street} ` +
+      `${dummyUsers[Math.floor(Math.random() * 10)].address.suite}, ` +
+      `${dummyUsers[Math.floor(Math.random() * 10)].address.city}, ` +
+      `${dummyUsers[Math.floor(Math.random() * 10)].address.zipcode}`;
+
+    return {
+      id: '',
+      uid: '',
+      name: dummyUsers[Math.floor(Math.random() * 10)].name,
+      email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
+      phone: dummyUsers[Math.floor(Math.random() * 10)].phone,
+      company: dummyUsers[Math.floor(Math.random() * 10)].company.name,
+      address: dummyAddress,
+      website: dummyUsers[Math.floor(Math.random() * 10)].website,
+    };
   }
 }
