@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginComponent } from './features/account/login/login.component';
-import { RegisterComponent } from './features/account/register/register.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegisterComponent } from './features/auth/register/register.component';
 import { ContactDashboardComponent } from './features/contacts/contact-dashboard/contact-dashboard.component';
 import { ContactDetailsComponent } from './features/contacts/contact-details/contact-details.component';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';

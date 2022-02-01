@@ -49,7 +49,7 @@
           aria-expanded="false"
           style="cursor: pointer"
         >
-          Welcome, User
+          {{ user ? user.email : "Guest" }}
         </a>
         <div
           ngbDropdownMenu

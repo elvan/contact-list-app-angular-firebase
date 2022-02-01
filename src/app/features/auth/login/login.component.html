@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="text-center pb-3 pt-3">
+          <i class="fa fa-lock mr-2"></i>
+          Login
+        </h3>
+        <hr />
+        <form #loginForm="ngForm" (click)="onSubmit()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              [(ngModel)]="email"
+              [disabled]="pending"
+              class="form-control"
+              type="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              [(ngModel)]="password"
+              [disabled]="pending"
+              class="form-control"
+              type="password"
+              name="password"
+              required
+            />
+          </div>
+          <button
+            [disabled]="loginForm.invalid || pending"
+            [ngStyle]="{
+              cursor: pending ? 'not-allowed' : 'pointer'
+            }"
+            type="submit"
+            class="btn btn-primary btn-block"
+          >
+            <span
+              *ngIf="pending"
+              class="spinner-border spinner-border-sm mr-2"
+            ></span>
+            <i *ngIf="!pending" class="fa fa-sign-in-o mr-2"></i>
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

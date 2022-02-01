@@ -22,7 +22,7 @@ export class ContactService {
   }
 
   getAll(): Observable<Contact[]> {
-    return this.contactCollection.snapshotChanges().pipe<Contact[]>(
+    return this.contactCollection.snapshotChanges().pipe(
       map((changes) => {
         return changes.map((action) => {
           const data = action.payload.doc.data();
