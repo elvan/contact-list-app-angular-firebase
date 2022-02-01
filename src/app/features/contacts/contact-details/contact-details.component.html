@@ -1,23 +1,31 @@
-<h3>Contact Details</h3>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item">
+      <a routerLink="/contact-dashboard">Contacts</a>
+    </li>
+    <li *ngIf="contact" class="breadcrumb-item active">{{ contact.name }}</li>
+  </ol>
+</nav>
 
 <div *ngIf="isPending">
   <p>Loading...</p>
 </div>
 
-<ng-container *ngIf="!isPending && contact">
+<ng-container *ngIf="contact">
   <div class="row">
     <div class="col-9">
       <div class="card">
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <strong>Name:</strong> {{ contact?.name }}
+              <strong>Name:</strong> {{ contact.name }}
             </li>
             <li class="list-group-item">
-              <strong>Email:</strong> {{ contact?.email }}
+              <strong>Email:</strong> {{ contact.email }}
             </li>
             <li class="list-group-item">
-              <strong>Phone:</strong> {{ contact?.phone }}
+              <strong>Phone:</strong> {{ contact.phone }}
             </li>
           </ul>
         </div>
@@ -27,11 +35,11 @@
     <div class="col-3">
       <div>
         <a
-          [routerLink]="'/contact-edit/' + contact?.id"
+          [routerLink]="'/contact-edit/' + contact.id"
           class="btn btn-primary btn-block"
         >
           <i class="fa fa-pencil mr-2"></i>
-          Edit
+          Edit Contact
         </a>
       </div>
 
@@ -57,7 +65,7 @@
             class="spinner-border spinner-border-sm mr-2"
           ></span>
           <i *ngIf="!isDeleting" class="fa fa-trash mr-2"></i>
-          {{ isDeleting ? "Deleting..." : "Delete" }}
+          {{ isDeleting ? "Deleting..." : "Delete Contact" }}
         </button>
       </div>
     </div>
