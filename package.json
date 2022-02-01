@@ -1,6 +1,6 @@
 {
   "name": "contact-list-app",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,9 +29,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.1202.15",
-    "@angular-devkit/build-angular": "~12.2.15",
-    "@angular/cli": "~12.2.15",
+    "@angular-devkit/architect": "^0.1202.16",
+    "@angular-devkit/build-angular": "~12.2.16",
+    "@angular/cli": "~12.2.16",
     "@angular/compiler-cli": "~12.2.16",
     "@types/jasmine": "~3.8.2",
     "@types/node": "^12.20.42",
@@ -42,7 +42,7 @@
     "inquirer-autocomplete-prompt": "^1.4.0",
     "jasmine-core": "~3.8.0",
     "jsonc-parser": "^3.0.0",
-    "karma": "~6.3.12",
+    "karma": "~6.3.13",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.1",
