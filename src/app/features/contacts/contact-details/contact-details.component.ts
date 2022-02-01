@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -18,7 +19,8 @@ export class ContactDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -41,13 +43,22 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-  async onDelete() {
+  openModal(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.delete();
+        },
+        (reason) => {}
+      );
+  }
+
+  private async delete() {
     this.isDeleting = true;
-    if (confirm('Are you sure?')) {
-      if (this.id) {
-        await this.contactService.delete(this.id);
-        this.router.navigateByUrl('/contact-dashboard');
-      }
+    if (this.id) {
+      await this.contactService.delete(this.id);
+      this.router.navigateByUrl('/contact-dashboard');
     }
     this.isDeleting = false;
   }
