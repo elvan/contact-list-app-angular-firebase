@@ -37,7 +37,7 @@ export class ContactDetailsComponent implements OnInit {
 
   onEdit(): void {
     if (this.id) {
-      this.router.navigate(['/contact-edit', this.id]);
+      this.router.navigate(['/contact-form', this.id]);
     }
   }
 
