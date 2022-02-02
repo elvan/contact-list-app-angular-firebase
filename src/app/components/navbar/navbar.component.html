@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
   <div class="container-lg">
     <a
-      routerLink="/"
+      [routerLink]="currentUser ? '/contact-dashboard' : '/'"
       class="navbar-brand text-uppercase"
       (click)="collapsed = true"
     >
-      <i class="fa fa-users mr-2"></i>Contacts
+      <i class="fa fa-users mr-2"></i>
+      Contacts
     </a>
 
     <button
