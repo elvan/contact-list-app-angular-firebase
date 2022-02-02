@@ -43,15 +43,15 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+
     this.authService.currentUser$.subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (this.currentUser) {
-        this.pending = true;
-        this.id = this.route.snapshot.paramMap.get('id');
-
         if (!this.id) {
           this.contactData = this.createDummyData();
         } else {
+          this.pending = true;
           // Update existing contact
           this.returnUrl = '/contact-details/' + this.id;
           this.getContactSub = this.contactService
@@ -63,10 +63,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
                   id: contact.id,
                 };
               }
+              this.pending = false;
             });
         }
-
-        this.pending = false;
       }
     });
   }
