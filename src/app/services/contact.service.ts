@@ -18,7 +18,7 @@ export class ContactService {
 
   list(uid: string): Observable<ContactWithId[] | null> {
     return this.firestore
-      .collection<ContactData>(`/users/${uid}/contacts`, (ref) =>
+      .collection<ContactWithId>(`/users/${uid}/contacts`, (ref) =>
         ref.orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
@@ -36,7 +36,7 @@ export class ContactService {
 
   read(uid: string, id: string) {
     return this.firestore
-      .collection<ContactData>(`/users/${uid}/contacts`)
+      .collection<ContactWithId>(`/users/${uid}/contacts`)
       .doc(id)
       .snapshotChanges()
       .pipe(map(this.fromDocument));

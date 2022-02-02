@@ -24,13 +24,8 @@ export class LoginComponent implements OnInit {
     }
 
     this.pending = true;
-    try {
-      await this.authService.login(this.email, this.password);
-      this.router.navigateByUrl('/contact-dashboard');
-    } catch (error) {
-      console.error(error);
-    } finally {
-      this.pending = false;
-    }
+    await this.authService.login(this.email, this.password);
+    this.router.navigateByUrl('/contact-dashboard');
+    this.pending = false;
   }
 }

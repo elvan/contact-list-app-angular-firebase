@@ -75,12 +75,12 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
 
   private async delete(): Promise<void> {
     if (this.currentUser) {
-      this.deleting = true;
       if (this.id) {
+        this.deleting = true;
         await this.contactService.delete(this.currentUser.uid, this.id);
         this.router.navigateByUrl('/contact-dashboard');
+        this.deleting = false;
       }
-      this.deleting = false;
     }
   }
 }

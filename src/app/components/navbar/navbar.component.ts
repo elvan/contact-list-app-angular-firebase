@@ -37,12 +37,8 @@ export class NavbarComponent implements OnInit {
       );
   }
 
-  private logout() {
-    try {
-      this.authService.logout();
-      this.router.navigateByUrl('/');
-    } catch (error) {
-      console.log(error);
-    }
+  private async logout() {
+    await this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 }

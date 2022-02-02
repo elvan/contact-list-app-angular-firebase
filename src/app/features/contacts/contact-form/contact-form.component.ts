@@ -15,6 +15,7 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactFormComponent implements OnInit, OnDestroy {
   pending = false;
+  mode: 'create' | 'update' = 'create';
 
   currentUser: firebase.User | null = null;
 
@@ -41,16 +42,17 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-
     this.authService.currentUser$.subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (this.currentUser) {
+        this.id = this.route.snapshot.paramMap.get('id');
         if (!this.id) {
+          this.mode = 'create';
           this.contactData = this.createDummyData();
         } else {
-          this.pending = true;
           // Update existing contact
+          this.pending = true;
+          this.mode = 'update';
           this.returnUrl = '/contact-details/' + this.id;
           this.getContactSub = this.contactService
             .read(this.currentUser.uid, this.id)
@@ -70,30 +72,30 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit(contactForm: NgForm): Promise<void> {
+    if (contactForm.invalid) {
+      return;
+    }
+
     if (this.currentUser) {
       this.pending = true;
-
-      if (contactForm.invalid) {
-        return;
-      }
-
-      if (!this.id) {
+      if (this.mode === 'create') {
         // Create
         await this.contactService.create(
           this.currentUser.uid,
           this.contactData
         );
-        this.router.navigateByUrl('/contact-dashboard');
+        await this.router.navigateByUrl('/contact-dashboard');
       } else {
         // Update
-        await this.contactService.update(
-          this.currentUser.uid,
-          this.id,
-          contactForm.value
-        );
-        this.router.navigate(['/contact-details', this.id]);
+        if (this.id) {
+          await this.contactService.update(
+            this.currentUser.uid,
+            this.id,
+            contactForm.value
+          );
+          await this.router.navigate(['/contact-details', this.id]);
+        }
       }
-
       this.pending = false;
     }
   }
