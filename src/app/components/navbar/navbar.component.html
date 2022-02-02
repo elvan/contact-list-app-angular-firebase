@@ -46,7 +46,7 @@
         </ul>
       </ng-template>
 
-      <div *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
+      <div ngbDropdown class="nav-item dropdown">
         <a
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
@@ -56,24 +56,36 @@
           aria-expanded="false"
           style="cursor: pointer"
         >
-          {{ currentUser?.email }}
+          {{ currentUser ? currentUser?.email : "Welcome, guest!" }}
         </a>
         <div
           ngbDropdownMenu
-          class="dropdown-menu"
+          class="dropdown-menu dropdown-menu-md-right"
           aria-labelledby="dropdown01"
           (click)="collapsed = true"
         >
-          <a ngbDropdownItem class="dropdown-item" routerLink="/">Action</a>
-          <a class="dropdown-item" routerLink="/">Another action</a>
-          <a class="dropdown-item" routerLink="/">Something else here</a>
-          <div class="dropdown-divider"></div>
           <a
-            (click)="openModal(content)"
+            ngbDropdownItem
             class="dropdown-item"
-            style="cursor: pointer"
-            >Logout</a
+            href="https://github.com/elvan/contact-list-app-angular-firebase"
+            target="_blank"
+            >Link to Source Code</a
           >
+          <a
+            class="dropdown-item"
+            href="https://github.com/elvan"
+            target="_blank"
+            >Elvan on GitHub</a
+          >
+          <ng-container *ngIf="currentUser">
+            <div class="dropdown-divider"></div>
+            <a
+              (click)="openModal(content)"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Logout</a
+            >
+          </ng-container>
         </div>
       </div>
     </div>
