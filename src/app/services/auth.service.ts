@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
-import { EMPTY, Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public readonly firebaseUser$: Observable<firebase.User | null> = EMPTY;
-
   private currentUserSource = new ReplaySubject<firebase.User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
