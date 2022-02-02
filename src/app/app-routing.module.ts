@@ -7,15 +7,32 @@ import { ContactDashboardComponent } from './features/contacts/contact-dashboard
 import { ContactDetailsComponent } from './features/contacts/contact-details/contact-details.component';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 import { HomeComponent } from './features/home/home.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'contact-dashboard', component: ContactDashboardComponent },
-  { path: 'contact-form', component: ContactFormComponent },
-  { path: 'contact-form/:id', component: ContactFormComponent },
-  { path: 'contact-details/:id', component: ContactDetailsComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'contact-dashboard',
+    component: ContactDashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contact-form',
+    component: ContactFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contact-form/:id',
+    component: ContactFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contact-details/:id',
+    component: ContactDetailsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: NotFoundComponent },
 ];
 
