@@ -16,6 +16,12 @@ export class AuthService {
     });
   }
 
+  async register(email: string, password: string) {
+    const userCredential =
+      await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
+    this.currentUserSource.next(userCredential.user);
+  }
+
   async login(email: string, password: string) {
     const userCredential = await this.firebaseAuth.signInWithEmailAndPassword(
       email,

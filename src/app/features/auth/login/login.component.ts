@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
 
+  error = '';
+
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
@@ -23,9 +25,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.pending = true;
-    await this.authService.login(this.email, this.password);
-    this.router.navigateByUrl('/contact-dashboard');
-    this.pending = false;
+    try {
+      this.pending = true;
+      await this.authService.login(this.email, this.password);
+      this.router.navigateByUrl('/contact-dashboard');
+    } catch (error: any) {
+      this.error = error.message;
+    } finally {
+      this.pending = false;
+    }
   }
 }

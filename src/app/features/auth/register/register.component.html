@@ -1,1 +1,60 @@
-<p>register works!</p>
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="text-center pb-3 pt-3">
+          <i class="fa fa-user-plus mr-2"></i>
+          Register
+        </h3>
+        <hr />
+        <form #registerForm="ngForm" (submit)="onSubmit(registerForm)">
+          <div *ngIf="error" class="alert alert-warning">{{ error }}</div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              [(ngModel)]="email"
+              [disabled]="pending"
+              class="form-control"
+              type="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              [(ngModel)]="password"
+              [disabled]="pending"
+              class="form-control"
+              type="password"
+              name="password"
+              required
+            />
+          </div>
+          <button
+            [disabled]="registerForm.invalid || pending"
+            [ngStyle]="{
+              cursor: pending ? 'not-allowed' : 'pointer'
+            }"
+            type="submit"
+            class="btn btn-primary btn-block"
+          >
+            <span
+              *ngIf="pending"
+              class="spinner-border spinner-border-sm mr-2"
+            ></span>
+            <i *ngIf="!pending" class="fa fa-sign-in-o mr-2"></i>
+            {{ pending ? "Registering..." : "Register" }}
+          </button>
+
+          <hr />
+
+          <div class="text-center">
+            Have an account?
+            <a routerLink="/login">Login here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
