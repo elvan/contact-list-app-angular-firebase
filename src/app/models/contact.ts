@@ -1,8 +1,6 @@
 import firebase from 'firebase/app';
 
-export interface Contact {
-  id: string;
-  uid: string; // Firebase Auth user ID
+export interface ContactData {
   name: string;
   email: string;
   phone: string;
@@ -11,4 +9,8 @@ export interface Contact {
   website: string;
   createdAt?: firebase.firestore.Timestamp;
   updatedAt?: firebase.firestore.Timestamp;
+}
+
+export interface ContactWithId extends ContactData {
+  id: string;
 }

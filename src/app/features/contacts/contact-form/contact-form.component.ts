@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
 import { dummyUsers } from 'src/app/data/dummy-users';
-import { Contact } from 'src/app/models/contact';
+import { ContactData } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -20,9 +20,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   id: string | null = null;
 
-  contactData: Contact = {
-    id: '',
-    uid: '',
+  contactData: ContactData = {
     name: '',
     email: '',
     phone: '',
@@ -58,10 +56,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
             .read(this.currentUser.uid, this.id)
             .subscribe((contact) => {
               if (contact) {
-                this.contactData = {
-                  ...contact,
-                  id: contact.id,
-                };
+                this.contactData = contact;
               }
               this.pending = false;
             });
@@ -111,8 +106,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       `${dummyUsers[Math.floor(Math.random() * 10)].address.zipcode}`;
 
     return {
-      id: '',
-      uid: '',
       name: dummyUsers[Math.floor(Math.random() * 10)].name,
       email: dummyUsers[Math.floor(Math.random() * 10)].email.toLowerCase(),
       phone: dummyUsers[Math.floor(Math.random() * 10)].phone,

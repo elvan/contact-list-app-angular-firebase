@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Contact } from 'src/app/models/contact';
+import { ContactWithId } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -14,7 +14,7 @@ import { ContactService } from 'src/app/services/contact.service';
 export class ContactDashboardComponent implements OnInit, OnDestroy {
   pending = false;
 
-  contacts: Contact[] = [];
+  contacts: ContactWithId[] = [];
 
   authSub?: Subscription;
   listContactsSub?: Subscription;

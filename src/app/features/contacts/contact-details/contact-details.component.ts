@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
-import { Contact } from 'src/app/models/contact';
+import { ContactData } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
 @Component({
@@ -17,7 +17,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
 
   currentUser?: firebase.User | null;
 
-  contact?: Contact;
+  contact?: ContactData;
   id?: string | null;
 
   authSub?: Subscription;
