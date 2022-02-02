@@ -24,7 +24,7 @@
       class="navbar-collapse"
       id="navbarContent"
     >
-      <ng-container *ngIf="user; else guestNav">
+      <ng-container *ngIf="currentUser; else guestNav">
         <ul class="navbar-nav mr-auto" (click)="collapsed = true">
           <li routerLinkActive="active" class="nav-item">
             <a routerLink="/contact-dashboard" class="nav-link">All Contacts</a>
@@ -46,7 +46,7 @@
         </ul>
       </ng-template>
 
-      <div *ngIf="user" ngbDropdown class="nav-item dropdown">
+      <div *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
         <a
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
@@ -56,7 +56,7 @@
           aria-expanded="false"
           style="cursor: pointer"
         >
-          {{ user.email }}
+          {{ currentUser?.email }}
         </a>
         <div
           ngbDropdownMenu

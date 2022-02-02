@@ -6,60 +6,53 @@ import {
   DocumentSnapshot,
 } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Contact } from '../models/contact';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  user: firebase.User | null = null;
+  constructor(private firestore: AngularFirestore) {}
 
-  constructor(
-    private firestore: AngularFirestore,
-    private authService: AuthService
-  ) {
-    this.authService.firebaseUser$.subscribe((user) => (this.user = user));
-  }
-
-  list() {
+  list(uid: string): Observable<Contact[] | null> {
     return this.firestore
-      .collection<Contact>(`/users/${this.user?.uid}/contacts`, (ref) =>
+      .collection<Contact>(`/users/${uid}/contacts`, (ref) =>
         ref.orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
       .pipe(map(this.fromCollection));
   }
 
-  create(contact: Contact) {
+  create(uid: string, contact: Contact) {
     const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
     contact.createdAt = timestamp;
     contact.updatedAt = timestamp;
     return this.firestore
-      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .collection<Contact>(`/users/${uid}/contacts`)
       .add(contact);
   }
 
-  read(id: string) {
+  read(uid: string, id: string) {
     return this.firestore
-      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .collection<Contact>(`/users/${uid}/contacts`)
       .doc(id)
       .snapshotChanges()
       .pipe(map(this.fromDocument));
   }
 
-  update(id: string, contact: Contact) {
+  update(uid: string, id: string, contact: Contact) {
     contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
     return this.firestore
-      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .collection<Contact>(`/users/${uid}/contacts`)
       .doc(id)
       .update(contact);
   }
 
-  delete(id: string) {
+  delete(uid: string, id: string) {
     return this.firestore
-      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .collection<Contact>(`/users/${uid}/contacts`)
       .doc(id)
       .delete();
   }

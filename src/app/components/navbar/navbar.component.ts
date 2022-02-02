@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import firebase from 'firebase/app';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,12 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
   collapsed = true;
 
-  user: firebase.User | null = null;
-
-  getUserSub?: Subscription;
+  currentUser: firebase.User | null = null;
 
   constructor(
     private router: Router,
@@ -24,13 +21,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getUserSub = this.authService.getUser().subscribe((user) => {
-      this.user = user;
+    this.authService.currentUser$.subscribe((currentUser) => {
+      this.currentUser = currentUser;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.getUserSub?.unsubscribe();
   }
 
   openModal(content: any): void {
