@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class GuestGuard implements CanActivate {
   constructor(private router: Router, private firebaseAuth: AngularFireAuth) {}
 
   canActivate(
@@ -24,11 +24,11 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     this.firebaseAuth.authState.subscribe((user) => {
-      if (user) {
+      if (!user) {
         return true;
       }
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/contact-dashboard']);
       return false;
     });
 

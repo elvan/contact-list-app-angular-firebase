@@ -8,11 +8,12 @@ import { ContactDetailsComponent } from './features/contacts/contact-details/con
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 import { HomeComponent } from './features/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
+import { GuestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', component: HomeComponent, canActivate: [GuestGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
   {
     path: 'contact-dashboard',
     component: ContactDashboardComponent,
