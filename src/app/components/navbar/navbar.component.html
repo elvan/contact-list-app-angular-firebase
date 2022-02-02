@@ -78,8 +78,10 @@
             target="_blank"
             >Elvan on GitHub</a
           >
-          <ng-container *ngIf="currentUser">
-            <div class="dropdown-divider"></div>
+
+          <div class="dropdown-divider"></div>
+
+          <ng-container *ngIf="currentUser; else guest">
             <a
               (click)="openModal(content)"
               class="dropdown-item"
@@ -87,6 +89,18 @@
               >Logout</a
             >
           </ng-container>
+
+          <ng-template #guest>
+            <a class="dropdown-item" style="cursor: pointer" routerLink="/login"
+              >Login</a
+            >
+            <a
+              class="dropdown-item"
+              style="cursor: pointer"
+              routerLink="/register"
+              >Register</a
+            >
+          </ng-template>
         </div>
       </div>
     </div>
