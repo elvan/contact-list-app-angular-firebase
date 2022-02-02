@@ -8,16 +8,24 @@ import {
 import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { Contact } from '../models/contact';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  constructor(private firestore: AngularFirestore) {}
+  user: firebase.User | null = null;
+
+  constructor(
+    private firestore: AngularFirestore,
+    private authService: AuthService
+  ) {
+    this.authService.firebaseUser$.subscribe((user) => (this.user = user));
+  }
 
   list() {
     return this.firestore
-      .collection<Contact>('contacts', (ref) =>
+      .collection<Contact>(`/users/${this.user?.uid}/contacts`, (ref) =>
         ref.orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
@@ -28,12 +36,14 @@ export class ContactService {
     const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
     contact.createdAt = timestamp;
     contact.updatedAt = timestamp;
-    return this.firestore.collection<Contact>('contacts').add(contact);
+    return this.firestore
+      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .add(contact);
   }
 
   read(id: string) {
     return this.firestore
-      .collection<Contact>('contacts')
+      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
       .doc(id)
       .snapshotChanges()
       .pipe(map(this.fromDocument));
@@ -42,13 +52,16 @@ export class ContactService {
   update(id: string, contact: Contact) {
     contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
     return this.firestore
-      .collection<Contact>('contacts')
+      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
       .doc(id)
       .update(contact);
   }
 
   delete(id: string) {
-    return this.firestore.collection<Contact>('contacts').doc(id).delete();
+    return this.firestore
+      .collection<Contact>(`/users/${this.user?.uid}/contacts`)
+      .doc(id)
+      .delete();
   }
 
   private fromCollection(changes: DocumentChangeAction<Contact>[]): Contact[] {
