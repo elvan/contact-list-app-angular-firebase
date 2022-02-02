@@ -47,7 +47,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       // Update existing contact
       this.returnUrl = '/contact-details/' + this.id;
       this.getContactSub = this.contactService
-        .get(this.id)
+        .read(this.id)
         .subscribe((contact) => {
           if (contact) {
             this.contactData = {

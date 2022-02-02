@@ -32,7 +32,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
     if (this.id) {
       this.pending = true;
       this.getContactSub = this.contactService
-        .get(this.id)
+        .read(this.id)
         .subscribe((contact) => {
           if (contact) {
             this.contact = contact;

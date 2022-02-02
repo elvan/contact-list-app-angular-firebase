@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {
+  Action,
+  AngularFirestore,
+  DocumentChangeAction,
+  DocumentSnapshot,
+} from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { Contact } from '../models/contact';
@@ -12,17 +17,11 @@ export class ContactService {
 
   list() {
     return this.firestore
-      .collection<Contact>('contacts')
+      .collection<Contact>('contacts', (ref) =>
+        ref.orderBy('createdAt', 'desc')
+      )
       .snapshotChanges()
-      .pipe(
-        map((changes) => {
-          return changes.map((action) => {
-            const data = action.payload.doc.data();
-            const id = action.payload.doc.id;
-            return { ...data, id };
-          });
-        })
-      );
+      .pipe(map(this.fromCollection));
   }
 
   create(contact: Contact) {
@@ -32,22 +31,12 @@ export class ContactService {
     return this.firestore.collection<Contact>('contacts').add(contact);
   }
 
-  get(id: string) {
+  read(id: string) {
     return this.firestore
       .collection<Contact>('contacts')
       .doc(id)
       .snapshotChanges()
-      .pipe(
-        map((action) => {
-          if (!action.payload.exists) {
-            return null;
-          }
-
-          const data = action.payload.data();
-          const id = action.payload.id;
-          return { ...data, id };
-        })
-      );
+      .pipe(map(this.fromDocument));
   }
 
   update(id: string, contact: Contact) {
@@ -60,5 +49,25 @@ export class ContactService {
 
   delete(id: string) {
     return this.firestore.collection<Contact>('contacts').doc(id).delete();
+  }
+
+  private fromCollection(changes: DocumentChangeAction<Contact>[]): Contact[] {
+    return changes.map((action) => {
+      const data = action.payload.doc.data();
+      const id = action.payload.doc.id;
+      return { ...data, id };
+    });
+  }
+
+  private fromDocument(
+    snapshot: Action<DocumentSnapshot<Contact>>
+  ): Contact | null {
+    if (!snapshot.payload.exists) {
+      return null;
+    }
+
+    const data = snapshot.payload.data();
+    const id = snapshot.payload.id;
+    return { ...data, id };
   }
 }
