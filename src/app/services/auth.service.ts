@@ -7,10 +7,10 @@ import { EMPTY, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  public readonly user$: Observable<firebase.User | null> = EMPTY;
+  public readonly firebaseUser$: Observable<firebase.User | null> = EMPTY;
 
   constructor(private auth: AngularFireAuth) {
-    this.user$ = auth.user;
+    this.firebaseUser$ = this.auth.authState;
   }
 
   getUser() {

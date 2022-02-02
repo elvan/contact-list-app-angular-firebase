@@ -3,20 +3,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { Contact } from '../models/contact';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  constructor(
-    private firestore: AngularFirestore,
-    private authService: AuthService
-  ) {}
+  constructor(private firestore: AngularFirestore) {}
 
   list() {
     return this.firestore
-      .collection<Contact>('contacts', this.queryContacts)
+      .collection<Contact>('contacts')
       .snapshotChanges()
       .pipe(
         map((changes) => {
@@ -31,19 +27,14 @@ export class ContactService {
 
   create(contact: Contact) {
     const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
-    this.authService.user$.subscribe((user) => {
-      if (user) {
-        contact.createdAt = timestamp;
-        contact.updatedAt = timestamp;
-        contact.uid = user.uid;
-        this.firestore.collection<Contact>('contacts').add(contact);
-      }
-    });
+    contact.createdAt = timestamp;
+    contact.updatedAt = timestamp;
+    return this.firestore.collection<Contact>('contacts').add(contact);
   }
 
   get(id: string) {
     return this.firestore
-      .collection<Contact>('contacts', this.queryContacts)
+      .collection<Contact>('contacts')
       .doc(id)
       .snapshotChanges()
       .pipe(
@@ -59,28 +50,15 @@ export class ContactService {
       );
   }
 
-  update(id: string, contact: Contact): Promise<void> {
+  update(id: string, contact: Contact) {
     contact.updatedAt = firebase.firestore.Timestamp.fromDate(new Date());
     return this.firestore
-      .collection<Contact>('contacts', this.queryContacts)
+      .collection<Contact>('contacts')
       .doc(id)
       .update(contact);
   }
 
-  delete(id: string): Promise<void> {
-    return this.firestore
-      .collection<Contact>('contacts', this.queryContacts)
-      .doc(id)
-      .delete();
+  delete(id: string) {
+    return this.firestore.collection<Contact>('contacts').doc(id).delete();
   }
-
-  private queryContacts = (ref: firebase.firestore.Query) => {
-    let query:
-      | firebase.firestore.CollectionReference
-      | firebase.firestore.Query = ref;
-
-    query = query.orderBy('createdAt', 'desc');
-
-    return query;
-  };
 }

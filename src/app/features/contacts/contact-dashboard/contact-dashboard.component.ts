@@ -20,12 +20,15 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pending = true;
-    this.listContactsSub = this.contactService
-      .list()
-      .subscribe((contactsData) => {
-        this.contacts = contactsData;
+    this.listContactsSub = this.contactService.list().subscribe(
+      (contacts: Contact[]) => {
+        this.contacts = contacts;
         this.pending = false;
-      });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnDestroy(): void {

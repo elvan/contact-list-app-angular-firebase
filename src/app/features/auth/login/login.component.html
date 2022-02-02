@@ -7,7 +7,7 @@
           Login
         </h3>
         <hr />
-        <form #loginForm="ngForm" (click)="onSubmit()">
+        <form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
           <div class="form-group">
             <label for="email">Email</label>
             <input
