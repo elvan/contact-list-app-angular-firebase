@@ -8,6 +8,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -23,15 +24,15 @@ export class GuestGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.firebaseAuth.authState.subscribe((user) => {
-      if (!user) {
-        return true;
-      }
+    return this.firebaseAuth.authState.pipe(
+      map((user) => {
+        if (!user) {
+          return true;
+        }
 
-      this.router.navigate(['/contact-dashboard']);
-      return false;
-    });
-
-    return true;
+        this.router.navigate(['/contact-dashboard']);
+        return false;
+      })
+    );
   }
 }
