@@ -18,17 +18,16 @@
     </div>
 
     <hr class="my-3" />
-
-    <h4>Info</h4>
-    <p class="alert alert-info">
-      <i class="fa fa-info mr-2"></i>
-      This form is pre-populated with dummy data.
-    </p>
   </div>
 
   <div class="col-xs-12 col-md-9 mb-3">
     <div class="card">
       <div class="card-body">
+        <p *ngIf="mode === 'create'" class="alert alert-info">
+          <i class="fa fa-info mr-2"></i>
+          This form is pre-populated with dummy data.
+        </p>
+
         <form #contactForm="ngForm" (submit)="onSubmit(contactForm)">
           <!-- Name -->
           <div class="form-group">
@@ -234,7 +233,7 @@
           <!-- Submit Button -->
           <button
             type="submit"
-            class="btn btn-success"
+            class="btn btn-success btn-block"
             [disabled]="contactForm.invalid"
             [ngStyle]="{
               cursor: pending ? 'not-allowed' : 'pointer'
