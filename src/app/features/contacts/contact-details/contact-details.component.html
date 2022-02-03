@@ -14,36 +14,6 @@
 
 <ng-container *ngIf="contact">
   <div class="row">
-    <div class="col-xs-12 col-md-9 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <strong>Name:</strong> {{ contact.name }}
-            </li>
-            <li class="list-group-item">
-              <strong>Email:</strong> {{ contact.email }}
-            </li>
-            <li class="list-group-item">
-              <strong>Phone:</strong> {{ contact.phone }}
-            </li>
-            <li class="list-group-item">
-              <strong>Company:</strong> {{ contact.company }}
-            </li>
-            <li class="list-group-item">
-              <strong>Address:</strong> {{ contact.address }}
-            </li>
-            <li class="list-group-item">
-              <strong>Website:</strong>
-              <a [href]="'http://' + contact.website" target="_blank">
-                {{ contact.website }}</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <div class="col-xs-12 col-md-3">
       <div>
         <a
@@ -123,6 +93,36 @@
           <i *ngIf="!deleting" class="fa fa-trash mr-2"></i>
           {{ deleting ? "Deleting..." : "Delete Contact" }}
         </button>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-9 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Name:</strong> {{ contact.name }}
+            </li>
+            <li class="list-group-item">
+              <strong>Email:</strong> {{ contact.email }}
+            </li>
+            <li class="list-group-item">
+              <strong>Phone:</strong> {{ contact.phone }}
+            </li>
+            <li class="list-group-item">
+              <strong>Company:</strong> {{ contact.company }}
+            </li>
+            <li class="list-group-item">
+              <strong>Address:</strong> {{ contact.address }}
+            </li>
+            <li class="list-group-item">
+              <strong>Website:</strong>
+              <a [href]="'http://' + contact.website" target="_blank">
+                {{ contact.website }}</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

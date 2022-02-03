@@ -10,6 +10,23 @@
 </div>
 
 <div *ngIf="!pending" class="row">
+  <div class="col-xs-12 col-md-3">
+    <div>
+      <a routerLink="/contact-form" class="btn btn-success btn-block"
+        ><i class="fa fa-plus mr-2"></i>Add New Contact</a
+      >
+
+      <hr class="my-3" />
+
+      <h4>Info</h4>
+
+      <p class="alert alert-light">
+        <i class="fa fa-user mr-2"></i>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      </p>
+    </div>
+  </div>
+
   <div class="col-xs-12 col-md-9 mb-3">
     <ng-container *ngIf="contacts.length > 0; else empty">
       <div class="table-responsive">
@@ -41,22 +58,5 @@
         <p>No contacts found.</p>
       </div>
     </ng-template>
-  </div>
-
-  <div class="col-xs-12 col-md-3">
-    <div>
-      <a routerLink="/contact-form" class="btn btn-primary btn-block"
-        ><i class="fa fa-plus mr-2"></i>Add New Contact</a
-      >
-
-      <hr class="my-3" />
-
-      <h4>Info</h4>
-
-      <p class="alert alert-light">
-        <i class="fa fa-user mr-2"></i>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-      </p>
-    </div>
   </div>
 </div>

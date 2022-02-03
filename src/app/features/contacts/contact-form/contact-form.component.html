@@ -9,6 +9,23 @@
 </nav>
 
 <div class="row">
+  <div class="col-xs-12 col-md-3">
+    <div>
+      <a [routerLink]="returnUrl" class="btn btn-outline-primary btn-block"
+        ><i class="fa fa-chevron-left mr-2"></i> Back to
+        {{ mode === "update" ? "Details" : "All Contacts" }}</a
+      >
+    </div>
+
+    <hr class="my-3" />
+
+    <h4>Info</h4>
+    <p class="alert alert-info">
+      <i class="fa fa-info mr-2"></i>
+      This form is pre-populated with dummy data.
+    </p>
+  </div>
+
   <div class="col-xs-12 col-md-9 mb-3">
     <div class="card">
       <div class="card-body">
@@ -233,22 +250,5 @@
         </form>
       </div>
     </div>
-  </div>
-
-  <div class="col-xs-12 col-md-3">
-    <div>
-      <a [routerLink]="returnUrl" class="btn btn-outline-primary btn-block"
-        ><i class="fa fa-chevron-left mr-2"></i> Back to
-        {{ mode === "update" ? "Details" : "All Contacts" }}</a
-      >
-    </div>
-
-    <hr class="my-3" />
-
-    <h4>Info</h4>
-    <p class="alert alert-info">
-      <i class="fa fa-info mr-2"></i>
-      This form is pre-populated with dummy data.
-    </p>
   </div>
 </div>
