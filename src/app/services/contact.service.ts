@@ -6,7 +6,6 @@ import {
   DocumentSnapshot,
 } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
-import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ContactData, ContactWithId } from '../models/contact';
 
@@ -14,16 +13,10 @@ import { ContactData, ContactWithId } from '../models/contact';
   providedIn: 'root',
 })
 export class ContactService {
-  private contacts$?: Observable<ContactWithId[]>;
-
   constructor(private firestore: AngularFirestore) {}
 
   list(uid: string) {
-    if (this.contacts$) {
-      return this.contacts$;
-    }
-
-    this.contacts$ = this.firestore
+    return this.firestore
       .collection<ContactWithId>(`/users/${uid}/contacts`, (ref) =>
         ref.orderBy('createdAt', 'desc')
       )
@@ -32,8 +25,6 @@ export class ContactService {
         map(this.fromCollection),
         shareReplay({ bufferSize: 1, refCount: true })
       );
-
-    return this.contacts$;
   }
 
   create(uid: string, contact: ContactData) {
