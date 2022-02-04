@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ContactData } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
+
 @Component({
   selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
@@ -15,7 +16,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
   pending = false;
   deleting = false;
 
-  currentUser?: firebase.User | null;
+  user?: firebase.User | null;
 
   contact?: ContactData;
   id?: string | null;
@@ -29,30 +30,30 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private contactService: ContactService,
     private modalService: NgbModal
-  ) {}
-
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.authService.getUser().subscribe((currentUser) => {
-      this.currentUser = currentUser;
-
-      if (this.currentUser) {
-        if (this.id) {
-          this.pending = true;
-          this.getContactSub = this.contactService
-            .read(this.currentUser.uid, this.id)
-            .subscribe((contact) => {
-              if (contact) {
-                this.contact = contact;
-              }
-              this.pending = false;
-            });
-        }
-      }
+  ) {
+    this.authSub = this.authService.getUser().subscribe((user) => {
+      this.user = user;
     });
   }
 
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    if (this.user && this.id) {
+      this.pending = true;
+      this.getContactSub = this.contactService
+        .read(this.user.uid, this.id)
+        .subscribe((contact) => {
+          if (contact) {
+            this.contact = contact;
+          }
+          this.pending = false;
+        });
+    }
+  }
+
   ngOnDestroy(): void {
+    this.authSub?.unsubscribe();
     this.getContactSub?.unsubscribe();
   }
 
@@ -74,10 +75,10 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
   }
 
   private async delete(): Promise<void> {
-    if (this.currentUser) {
+    if (this.user) {
       if (this.id) {
         this.deleting = true;
-        await this.contactService.delete(this.currentUser.uid, this.id);
+        await this.contactService.delete(this.user.uid, this.id);
         this.router.navigateByUrl('/contact-dashboard');
         this.deleting = false;
       }

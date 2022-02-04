@@ -18,14 +18,14 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
   contacts: ContactWithId[] = [];
 
   authSub?: Subscription;
-  listContactsSub?: Subscription;
+  contactSub?: Subscription;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private contactService: ContactService
   ) {
-    this.authService.getUser().subscribe((user) => {
+    this.authSub = this.authService.getUser().subscribe((user) => {
       this.user = user;
     });
   }
@@ -33,7 +33,7 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.user) {
       this.pending = true;
-      this.listContactsSub = this.contactService
+      this.contactSub = this.contactService
         .list(this.user.uid)
         .subscribe((contacts) => {
           if (contacts) {
@@ -46,7 +46,7 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.authSub?.unsubscribe();
-    this.listContactsSub?.unsubscribe();
+    this.contactSub?.unsubscribe();
   }
 
   viewDetails(id: string | undefined): void {
