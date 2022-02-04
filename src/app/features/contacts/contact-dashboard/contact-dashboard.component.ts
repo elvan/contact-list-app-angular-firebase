@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { ContactWithId } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
@@ -14,6 +14,7 @@ import { ContactService } from 'src/app/services/contact.service';
 export class ContactDashboardComponent implements OnInit, OnDestroy {
   pending = false;
 
+  user: firebase.User | null = null;
   contacts: ContactWithId[] = [];
 
   authSub?: Subscription;
@@ -23,30 +24,27 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
     private router: Router,
     private contactService: ContactService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.authService.getUser().subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
-    this.authSub = this.authService
-      .getUser()
-      .pipe(take(1))
-      .subscribe((currentUser) => {
-        if (currentUser) {
-          this.pending = true;
-          this.listContactsSub = this.contactService
-            .list(currentUser.uid)
-            .subscribe(
-              (contacts) => {
-                if (contacts) {
-                  this.contacts = contacts;
-                }
-                this.pending = false;
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
+    if (this.user) {
+      this.pending = true;
+      this.listContactsSub = this.contactService.list(this.user.uid).subscribe(
+        (contacts) => {
+          if (contacts) {
+            this.contacts = contacts;
+          }
+          this.pending = false;
+        },
+        (error) => {
+          console.log(error);
         }
-      });
+      );
+    }
   }
 
   ngOnDestroy(): void {

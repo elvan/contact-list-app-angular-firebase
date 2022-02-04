@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { Observable, ReplaySubject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,10 @@ export class AuthService {
   }
 
   getUser(): Observable<firebase.User | null> {
-    return this.user$.asObservable();
+    // Cache the observable with shareReplay to avoid unnecessary calls to the backend
+    return this.user$
+      .asObservable()
+      .pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 
   async register(email: string, password: string) {
