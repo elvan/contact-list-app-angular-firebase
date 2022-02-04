@@ -7,22 +7,33 @@ import {
 } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { ContactData, ContactWithId } from '../models/contact';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
+  private contacts$?: Observable<ContactWithId[]>;
+
   constructor(private firestore: AngularFirestore) {}
 
-  list(uid: string): Observable<ContactWithId[] | null> {
-    return this.firestore
+  list(uid: string) {
+    if (this.contacts$) {
+      return this.contacts$;
+    }
+
+    this.contacts$ = this.firestore
       .collection<ContactWithId>(`/users/${uid}/contacts`, (ref) =>
         ref.orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
-      .pipe(map(this.fromCollection));
+      .pipe(
+        map(this.fromCollection),
+        shareReplay({ bufferSize: 1, refCount: true })
+      );
+
+    return this.contacts$;
   }
 
   create(uid: string, contact: ContactData) {
