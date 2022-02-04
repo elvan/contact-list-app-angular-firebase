@@ -33,7 +33,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.authService.currentUser$.subscribe((currentUser) => {
+    this.authService.getUser().subscribe((currentUser) => {
       this.currentUser = currentUser;
 
       if (this.currentUser) {

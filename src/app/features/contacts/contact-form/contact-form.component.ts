@@ -42,7 +42,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser$.subscribe((currentUser) => {
+    this.authService.getUser().subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (this.currentUser) {
         this.id = this.route.snapshot.paramMap.get('id');

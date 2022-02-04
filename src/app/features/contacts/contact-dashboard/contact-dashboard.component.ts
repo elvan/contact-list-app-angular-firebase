@@ -26,7 +26,8 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.authSub = this.authService.currentUser$
+    this.authSub = this.authService
+      .getUser()
       .pipe(take(1))
       .subscribe((currentUser) => {
         if (currentUser) {

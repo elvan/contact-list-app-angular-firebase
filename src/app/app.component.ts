@@ -13,7 +13,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.authService
-      .getCurrentUser()
+      .initAuthState()
       .then(
         (user) => {},
         (error) => {
