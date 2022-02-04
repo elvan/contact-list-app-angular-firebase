@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
   <div class="container-lg">
     <a
-      [routerLink]="currentUser ? '/contact-dashboard' : '/'"
+      [routerLink]="(user$ | async) ? '/contact-dashboard' : '/'"
       class="navbar-brand text-uppercase"
       (click)="collapsed = true"
     >
@@ -25,7 +25,7 @@
       class="navbar-collapse"
       id="navbarContent"
     >
-      <ng-container *ngIf="currentUser; else guestNav">
+      <ng-container *ngIf="user$ | async; else guestNav">
         <ul class="navbar-nav mr-auto" (click)="collapsed = true">
           <li routerLinkActive="active" class="nav-item">
             <a routerLink="/contact-dashboard" class="nav-link">All Contacts</a>
@@ -57,7 +57,7 @@
           aria-expanded="false"
           style="cursor: pointer"
         >
-          {{ currentUser ? currentUser?.email : "Welcome, guest!" }}
+          {{ (user$ | async) ? (user$ | async)?.email : "Welcome, guest!" }}
         </a>
         <div
           ngbDropdownMenu
@@ -81,7 +81,7 @@
 
           <div class="dropdown-divider"></div>
 
-          <ng-container *ngIf="currentUser; else guest">
+          <ng-container *ngIf="user$ | async; else guest">
             <a
               (click)="openModal(content)"
               class="dropdown-item"
