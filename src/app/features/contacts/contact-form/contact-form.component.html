@@ -41,7 +41,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="name"
               id="name"
               type="text"
@@ -74,7 +74,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="email"
               id="email"
               type="email"
@@ -107,7 +107,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="phone"
               id="phone"
               type="tel"
@@ -141,7 +141,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="company"
               id="company"
               type="text"
@@ -175,7 +175,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="address"
               id="address"
               type="text"
@@ -209,7 +209,7 @@
               [ngStyle]="{
                 cursor: pending ? 'not-allowed' : 'auto'
               }"
-              [disabled]="pending"
+              [disabled]="pending || saving"
               name="website"
               id="website"
               type="url"
@@ -234,17 +234,17 @@
           <button
             type="submit"
             class="btn btn-success btn-block"
-            [disabled]="contactForm.invalid"
+            [disabled]="contactForm.invalid || pending"
             [ngStyle]="{
               cursor: pending ? 'not-allowed' : 'pointer'
             }"
           >
             <span
-              *ngIf="pending"
+              *ngIf="saving"
               class="spinner-border spinner-border-sm mr-2"
             ></span>
-            <i *ngIf="!pending" class="fa fa-floppy-o mr-2"></i>
-            {{ pending ? "Saving..." : "Save Contact" }}
+            <i *ngIf="!saving" class="fa fa-floppy-o mr-2"></i>
+            {{ saving ? "Saving..." : "Save Contact" }}
           </button>
         </form>
       </div>

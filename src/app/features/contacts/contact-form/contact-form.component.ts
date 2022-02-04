@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { dummyUsers } from 'src/app/data/dummy-users';
 import { ContactData } from 'src/app/models/contact';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,6 +16,8 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactFormComponent implements OnInit, OnDestroy {
   pending = false;
+  saving = false;
+
   mode: 'create' | 'update' = 'create';
 
   currentUser: firebase.User | null = null;
@@ -32,7 +35,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   returnUrl = '/contact-dashboard';
 
-  getContactSub?: Subscription;
+  authSub?: Subscription;
+  contactSub?: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +46,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((currentUser) => {
+    this.authSub = this.authService.getUser().subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (this.currentUser) {
         this.id = this.route.snapshot.paramMap.get('id');
@@ -54,8 +58,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           this.pending = true;
           this.mode = 'update';
           this.returnUrl = '/contact-details/' + this.id;
-          this.getContactSub = this.contactService
+          this.contactSub = this.contactService
             .read(this.currentUser.uid, this.id)
+            .pipe(take(1))
             .subscribe((contact) => {
               if (contact) {
                 this.contactData = contact;
@@ -68,7 +73,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getContactSub?.unsubscribe();
+    this.authSub?.unsubscribe();
+    this.contactSub?.unsubscribe();
   }
 
   async onSubmit(contactForm: NgForm): Promise<void> {
@@ -78,13 +84,15 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
     if (this.currentUser) {
       this.pending = true;
+      this.saving = true;
+
       if (this.mode === 'create') {
         // Create
         await this.contactService.create(
           this.currentUser.uid,
           this.contactData
         );
-        await this.router.navigateByUrl('/contact-dashboard');
+        this.router.navigateByUrl('/contact-dashboard');
       } else {
         // Update
         if (this.id) {
@@ -93,10 +101,12 @@ export class ContactFormComponent implements OnInit, OnDestroy {
             this.id,
             contactForm.value
           );
-          await this.router.navigate(['/contact-details', this.id]);
+          this.router.navigate(['/contact-details', this.id]);
         }
       }
+
       this.pending = false;
+      this.saving = false;
     }
   }
 

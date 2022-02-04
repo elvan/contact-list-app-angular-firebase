@@ -32,12 +32,14 @@ export class ContactDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.user) {
+      this.pending = true;
       this.listContactsSub = this.contactService
         .list(this.user.uid)
         .subscribe((contacts) => {
           if (contacts) {
             this.contacts = contacts;
           }
+          this.pending = false;
         });
     }
   }
