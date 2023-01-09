@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyDyIpMGrnqUougPYzdjYUv3jcwgp4ruMp8',
-    authDomain: 'contact-list-app-angular-68e7e.firebaseapp.com',
-    projectId: 'contact-list-app-angular-68e7e',
-    storageBucket: 'contact-list-app-angular-68e7e.appspot.com',
-    messagingSenderId: '508273119311',
-    appId: '1:508273119311:web:a290f4b3fea6216f435a3a',
+    apiKey: 'AIzaSyCwstE5y87EGq7E6QiygCgUtDtGIfXRoLI',
+    authDomain: 'contact-list-app-angular-6d4be.firebaseapp.com',
+    projectId: 'contact-list-app-angular-6d4be',
+    storageBucket: 'contact-list-app-angular-6d4be.appspot.com',
+    messagingSenderId: '744068226581',
+    appId: '1:744068226581:web:933bcb625ea05c0636381c',
   },
 };
 
